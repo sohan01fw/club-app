@@ -1,3 +1,4 @@
+import AuthContext from "@/Context/AuthContext";
 import "../globals.css";
 import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
@@ -17,7 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <AuthContext>
+        <body className={inter.className}>{children}</body>
+      </AuthContext>
     </html>
   );
 }
