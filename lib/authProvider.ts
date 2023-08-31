@@ -30,11 +30,11 @@ export const authOptions: NextAuthOptions = {
       name: "Credentials",
 
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
+        email: { label: "Username", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        const res = await fetch("/your/endpoint", {
+        const res = await fetch("http://localhost:3000/api/auth/login", {
           method: "POST",
           body: JSON.stringify(credentials),
           headers: { "Content-Type": "application/json" },
@@ -53,8 +53,8 @@ export const authOptions: NextAuthOptions = {
   ],
 
   secret: process.env.NEXTAUTH_SECRET,
-
+  // this is for redirection to sigin page using next-auth
   pages: {
-    signIn: "/signup",
+    signIn: "/signin",
   },
 };

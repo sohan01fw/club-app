@@ -1,16 +1,18 @@
+"use client";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 
 export default function Home() {
+  const { data: session, status } = useSession();
+  console.log(session);
   return (
     <main className="">
       Hey this is Club app!!!
       <div>
         <Link href="/api/auth/signin">
-          <button className="m-10">signup</button>
+          <button>LogIn</button>
         </Link>
-        <Link href="/api/auth/signin">
-          <button>signIn</button>
-        </Link>
+        <button onClick={() => signOut()}>SignOut</button>
       </div>
     </main>
   );
