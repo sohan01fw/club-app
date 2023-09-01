@@ -21,7 +21,7 @@ const Page = () => {
     <div>
       <button
         onClick={() => {
-          signIn("google");
+          signIn("google", { callbackUrl: "http://localhost:3000/" });
         }}
       >
         Sign up with Google

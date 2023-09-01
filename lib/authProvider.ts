@@ -3,27 +3,26 @@ import GithubProvider from "next-auth/providers/github";
 import FacebookProvider from "next-auth/providers/facebook";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { signIn } from "next-auth/react";
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
 
   providers: [
     //Github provider
     GithubProvider({
-      clientId: process.env.GITHUB_ID || "",
-      clientSecret: process.env.GITHUB_SECRET || "",
+      clientId: process.env.GITHUB_ID as string,
+      clientSecret: process.env.GITHUB_SECRET as string,
     }),
 
     //Facebook provider
     FacebookProvider({
-      clientId: process.env.FACEBOOK_CLIENT_ID || "",
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET || "",
+      clientId: process.env.FACEBOOK_CLIENT_ID as string,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
     }),
 
     //Google provider
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID || "",
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
     CredentialsProvider({
       // The name to display on the sign in form (e.g. 'Sign in with...')
@@ -56,5 +55,15 @@ export const authOptions: NextAuthOptions = {
   // this is for redirection to sigin page using next-auth
   pages: {
     signIn: "/signin",
+  },
+
+  callbacks: {
+    async session({ session, token, user }) {
+      // Send properties to the client, like an access_token and user id from a provider.
+      return {
+        ...session,
+        id: token.sub,
+      };
+    },
   },
 };
