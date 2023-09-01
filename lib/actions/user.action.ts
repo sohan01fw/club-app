@@ -5,15 +5,21 @@ import { ConnectToDB } from "../mongoose";
 
 type user = {
   email: string;
-  name: string;
+  /* name: string; */
   password: string;
 };
 export async function StoreUser({
   email,
   password,
-  name,
-}: user): Promise<void> {
+}: /*   name, */
+user): Promise<void> {
   ConnectToDB();
 
-  const saveUser = new User({});
+  const saveUser = new User({
+    email,
+    /*   name, */
+    password,
+  });
+
+  await saveUser.save();
 }

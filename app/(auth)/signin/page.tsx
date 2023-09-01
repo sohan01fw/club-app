@@ -8,7 +8,6 @@ const Page = () => {
 
   const login = async (e: any) => {
     e.preventDefault();
-    console.log(email, password);
     const res = await signIn("credentials", {
       email: email,
       password: password,
@@ -17,15 +16,15 @@ const Page = () => {
     });
   };
 
+  const signInWithGoogle = async () => {
+    const res = await signIn("google", {
+      callbackUrl: "http://localhost:3000/",
+    });
+  };
+
   return (
     <div>
-      <button
-        onClick={() => {
-          signIn("google", { callbackUrl: "http://localhost:3000/" });
-        }}
-      >
-        Sign up with Google
-      </button>
+      <button onClick={signInWithGoogle}>Sign up with Google</button>
       <label>Email</label>
       <input
         type="text"

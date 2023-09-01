@@ -8,18 +8,14 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    name: {
-      type: String,
-      required: true,
-      unique: true,
-    },
     password: {
       type: String,
+      required: true,
     },
   },
   { timestamps: true }
 );
 
-const User = mongoose.models.User || mongoose.model("Users", userSchema);
+const User = mongoose.models.Users || mongoose.model("Users", userSchema);
 
 export default User;
