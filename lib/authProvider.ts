@@ -35,9 +35,10 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials, req) {
         const res = await fetch("http://localhost:3000/api/auth/login", {
           method: "POST",
-          body: JSON.stringify({ credentials, AuthProvider: true }),
+          body: JSON.stringify(credentials),
           headers: { "Content-Type": "application/json" },
         });
+
         const user = await res.json();
 
         // If no error and we have user data, return it
@@ -51,19 +52,9 @@ export const authOptions: NextAuthOptions = {
     // ...add more providers here
   ],
 
-  secret: process.env.NEXTAUTH_SECRET,
   // this is for redirection to sigin page using next-auth
   pages: {
     signIn: "/signin",
   },
-
-  callbacks: {
-    async session({ session, token, user }) {
-      // Send properties to the client, like an access_token and user id from a provider.
-      return {
-        ...session,
-        id: token.sub,
-      };
-    },
-  },
+  secret: process.env.NEXTAUTH_SECRET,
 };

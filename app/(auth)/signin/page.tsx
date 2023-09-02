@@ -1,7 +1,6 @@
 "use client";
 import { signIn } from "next-auth/react";
 import React, { useState } from "react";
-
 const Page = () => {
   const [email, setEmail] = useState<string | null>("");
   const [password, setPassword] = useState<string | null>("");
@@ -23,7 +22,16 @@ const Page = () => {
   };
 
   return (
-    <div>
+    <div className="">
+      <div className="border border-black">
+        <h1>Club</h1>
+      </div>
+
+      <div className="subTitl ">
+        <h3 className="text-red-300">Sign In</h3>
+        <span>to continue</span>
+      </div>
+
       <button onClick={signInWithGoogle}>Sign up with Google</button>
       <label>Email</label>
       <input

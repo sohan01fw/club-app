@@ -5,17 +5,17 @@ import { useEffect } from "react";
 
 export default function Home() {
   const { data: session, status } = useSession();
+  console.log(session);
   const User = session?.user;
   const email = User?.email;
-  const password = User?.name;
-  const AuthProvider = true;
+
   const GoogleUser = async () => {
     const sendData = await fetch("http://localhost:3000/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, AuthProvider }),
+      body: JSON.stringify({ email: email }),
     });
   };
 
@@ -27,9 +27,10 @@ export default function Home() {
 
   return (
     <main className="">
-      Hey this is Club app!!!
+      <h3 className="global-border"> Hey this is Club app!!!</h3>
+
       <div>
-        <Link href="/api/auth/signin">
+        <Link href="/signin">
           <button>LogIn</button>
         </Link>
         <button onClick={() => signOut()}>SignOut</button>
