@@ -9,13 +9,12 @@ type UserRes = {
 export async function handlePOSTRequest(request: Request) {
   const res = await request?.json();
   const { email, password }: UserRes = res;
-
-  if (email) {
+  /* if (email) {
     const findEmail = await User.findOne({ email });
     if (!findEmail) {
       StoreUser({ email, password });
     }
-  }
+  } */
   return NextResponse.json({ email, password });
 }
 export { handlePOSTRequest as GET, handlePOSTRequest as POST };

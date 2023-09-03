@@ -14,7 +14,7 @@ const Signin = () => {
 
   return (
     <div className="signIn_page grid place-items-center ">
-      <div className=" m-10 mt-40 rounded-[13px] shadow-xl">
+      <div className="   rounded-[13px] shadow-xl">
         <Link
           href="/"
           className="  flex w-48 mt-[-30px] transition-transform transform active:scale-95 "
@@ -35,9 +35,9 @@ const Signin = () => {
           <span className="text-gray-900  text-sm">to continue Club</span>
         </div>
 
-        <div className="providers flex  w-32 ml-3 mt-[-5px] mb-5 ">
+        <div className="providers flex justify-around  w-[10rem] ml-3 mt-[-5px] mb-5 ">
           <div
-            className="google  shadow-md mr-4 p-1 point "
+            className="google  shadow-md  p-2 point mr-2  transition-transform transform active:scale-95"
             onClick={() => {
               signIn("google");
             }}
@@ -45,7 +45,7 @@ const Signin = () => {
             <img src="/logo/google.png" alt="" className="" />
           </div>
           <div
-            className="facebook mr-4 p-1 point  shadow-md "
+            className="facebook  p-2 point  shadow-md transition-transform transform active:scale-95 mr-2 "
             onClick={() => {
               signIn("facebook");
             }}
@@ -53,7 +53,7 @@ const Signin = () => {
             <img src="/logo/facebook.png" alt="" />
           </div>
           <div
-            className="github p-1 point  shadow-md "
+            className="github p-2 point mr-2 shadow-md transition-transform transform active:scale-95"
             onClick={() => {
               signIn("github");
             }}
