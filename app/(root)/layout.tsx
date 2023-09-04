@@ -1,7 +1,7 @@
-import AuthContext from "@/Context/AuthContext";
+import AuthContext from "@/custom_components/AuthContext";
 import "../globals.css";
 import type { Metadata } from "next";
-import { SessionProvider } from "next-auth/react";
+
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });

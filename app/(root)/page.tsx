@@ -35,6 +35,9 @@ export default function Home() {
         </Link>
         <button onClick={() => signOut()}>SignOut</button>
       </div>
+      <Link href="/userprofile">
+        <button>Profile</button>
+      </Link>
     </main>
   );
 }
