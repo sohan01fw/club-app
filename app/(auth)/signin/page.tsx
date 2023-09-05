@@ -1,4 +1,4 @@
-import Signin from "@/Components/auth-workflow/Signin";
+import Signin from "@/Components/auth-workflow/AuthComponent/Signin";
 import { getProviders } from "next-auth/react";
 import React from "react";
 

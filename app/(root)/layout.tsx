@@ -1,4 +1,4 @@
-import AuthContext from "@/custom_components/AuthContext";
+import AuthContext from "@/Utils/custom_components/AuthContext";
 import "../globals.css";
 import type { Metadata } from "next";
 

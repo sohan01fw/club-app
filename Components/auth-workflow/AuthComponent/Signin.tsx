@@ -3,7 +3,7 @@ import { signIn } from "next-auth/react";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import Form from "./subAuthComponent/Form";
+import Form from "./Form";
 
 const Signin = () => {
   /* const signInWithGoogle = async () => {
