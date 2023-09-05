@@ -1,4 +1,5 @@
 "use client";
+import { ModeToggle } from "@/Components/Togglemode";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect } from "react";
@@ -38,6 +39,7 @@ export default function Home() {
       <Link href="/userprofile">
         <button>Profile</button>
       </Link>
+      <ModeToggle />
     </main>
   );
 }
