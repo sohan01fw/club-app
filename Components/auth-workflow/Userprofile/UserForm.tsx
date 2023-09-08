@@ -14,7 +14,7 @@ import React, { ChangeEvent } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { UserValidaton } from "@/lib/validations/User";
+import { UserValidaton } from "@/lib/validations/UserProfile";
 
 import Image from "next/image";
 import { Textarea } from "@/Components/ui/textarea";
@@ -53,37 +53,37 @@ const UserForm = () => {
           render={({ field }) => (
             <FormItem className="flex items-center">
               <Avatar className="h-20 w-20">
-  <FormLabel className="border grid place-items-center rounded-full overflow-hidden w-full p-1">
-    {field.value ? (
-      <Image
-        src={field.value}
-        alt="profile_pic"
-        width={96}
-        height={96}
-        priority
-        className="object-contain"
-      />
-    ) : (
-      <Image
-  src="/vercel.svg"
-  alt="profile_pic"
-  width={89}
-  height={89}
-  className="p-1 "
-/>
-    )}
-  </FormLabel>
-  </Avatar>
-  <FormControl className="border ml-4">
-    <Input
-      type="file"
-      accept="image/*"
-      placeholder="upload your photo"
-      className=" ml-6 "
-      onChange={(e) => handleImage(e, field.onChange)}
-    />
-  </FormControl>
-</FormItem>
+                <FormLabel className="border grid place-items-center rounded-full overflow-hidden w-full p-1">
+                  {field.value ? (
+                    <Image
+                      src={field.value}
+                      alt="profile_pic"
+                      width={96}
+                      height={96}
+                      priority
+                      className="object-contain"
+                    />
+                  ) : (
+                    <Image
+                      src="/vercel.svg"
+                      alt="profile_pic"
+                      width={89}
+                      height={89}
+                      className="p-1 "
+                    />
+                  )}
+                </FormLabel>
+              </Avatar>
+              <FormControl className="border ml-4">
+                <Input
+                  type="file"
+                  accept="image/*"
+                  placeholder="upload your photo"
+                  className=" ml-6 "
+                  onChange={(e) => handleImage(e, field.onChange)}
+                />
+              </FormControl>
+            </FormItem>
           )}
         />
         <FormField
@@ -92,8 +92,13 @@ const UserForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Username</FormLabel>
-              <FormControl >
-                <Input placeholder="Enter your profile name" type="text" />
+              <FormControl className="shadow-md rounded-sm ">
+                <Input
+                  placeholder="Enter your profile name"
+                  type="text"
+                  className="border-none  outline-[#5271FF] rounded-[5px] p-2 shadow-md mb-4 mt-1"
+                  {...field}
+                />
               </FormControl>
               <FormDescription>
                 This is your public display name.
@@ -124,7 +129,12 @@ const UserForm = () => {
           )}
         />
 
-        <Button type="submit" className="shadow-md transition-transform transform active:scale-95 m-10">Submit</Button>
+        <Button
+          type="submit"
+          className="shadow-md transition-transform transform active:scale-95 m-10 "
+        >
+          Submit
+        </Button>
       </form>
     </Form>
   );

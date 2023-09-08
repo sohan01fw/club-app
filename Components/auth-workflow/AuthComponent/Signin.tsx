@@ -3,7 +3,7 @@ import { signIn } from "next-auth/react";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import Form from "./Form";
+import AuthForm from "./AuthForm";
 
 const Signin = () => {
   /* const signInWithGoogle = async () => {
@@ -14,7 +14,7 @@ const Signin = () => {
 
   return (
     <div className="signIn_page grid place-items-center ">
-      <div className="   rounded-[13px] shadow-xl">
+      <div className="   rounded-[13px] shadow-xl w-full ml-3 mr-3 mt-24 min-[380px]:mt-44  min-[460px]:w-[28rem] md:mt-[19rem] lg:mt-28  ">
         <Link
           href="/"
           className="  flex w-48 mt-[-30px] transition-transform transform active:scale-95 "
@@ -61,7 +61,7 @@ const Signin = () => {
             <img src="/logo/githubpic.png" alt="" />
           </div>
         </div>
-        <Form />
+        <AuthForm />
       </div>
     </div>
   );
