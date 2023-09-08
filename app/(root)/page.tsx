@@ -1,4 +1,6 @@
 "use client";
+import ClubPost from "@/Components/Home-page/ClubPost";
+import Logo from "@/Components/Home-page/TopNav";
 import { ModeToggle } from "@/Components/Togglemode";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
@@ -27,19 +29,27 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="">
-      <h3 className="global-border"> Hey this is Club app!!!</h3>
+    <main className="mt-[-30px] ">
+      <h2 className=" font-bold text-[25px] m-2  w-20 text-center shadow-md ">
+        Home
+      </h2>
+      <div className="posts mt-4   h-[42rem] overflow-scroll ">
+        <ClubPost />
+        <ClubPost />
+        <ClubPost />
+        <ClubPost />
+      </div>
 
-      <div>
+      {/* <div>
         <Link href="/signin">
           <button>LogIn</button>
         </Link>
         <button onClick={() => signOut()}>SignOut</button>
-      </div>
-      <Link href="/userprofile">
+      </div> */}
+      {/* <Link href="/userprofile">
         <button>Profile</button>
-      </Link>
-      <ModeToggle />
+      </Link> */}
+      {/*  <ModeToggle /> */}
     </main>
   );
 }

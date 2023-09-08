@@ -15,10 +15,7 @@ const Signin = () => {
   return (
     <div className="signIn_page grid place-items-center ">
       <div className="   rounded-[13px] shadow-xl w-full ml-3 mr-3 min-[460px]:w-[28rem] pl-3 pr-3 mt-10  ">
-        <Link
-          href="/"
-          className="  flex w-48 mt-[-30px] transition-transform transform active:scale-95 "
-        >
+        <div className="  flex w-48 mt-[-30px] transition-transform transform active:scale-95 ">
           <img
             src="/logo/club_logo.png"
             className="h-40 ml-[-45px]"
@@ -26,7 +23,7 @@ const Signin = () => {
           />
 
           <h1 className="text-5xl font-extrabold ml-[-45px] mt-16">lub</h1>
-        </Link>
+        </div>
 
         <div className="subTitle m-4 mt-[-40px] ml-4">
           <h3 className="text-black font-semibold text-xl mb-[-4px]">

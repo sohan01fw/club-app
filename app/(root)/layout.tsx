@@ -4,6 +4,10 @@ import type { Metadata } from "next";
 
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/Components/Theme-provider";
+import Logo from "@/Components/Home-page/TopNav";
+import LeftNav from "@/Components/Home-page/LeftNav";
+import SuggestBar from "@/Components/Home-page/SuggestBar";
+import Bottombar from "@/Components/Home-page/Bottombar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,10 +24,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <AuthContext>
-        <body className={inter.className}>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <body className={`${inter.className} flex flex-col`}>
+          <Logo />
+          <main className="flex justify-between">
+            <LeftNav />
             {children}
-          </ThemeProvider>
+            <SuggestBar />
+          </main>
+          <Bottombar />
         </body>
       </AuthContext>
     </html>
