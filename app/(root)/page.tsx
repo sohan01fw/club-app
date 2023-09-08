@@ -29,14 +29,8 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="mt-[-30px] ">
-      <h2 className=" font-bold text-[25px] m-2  w-20 text-center shadow-md ">
-        Home
-      </h2>
-      <div className="posts mt-4   h-[42rem] overflow-scroll ">
-        <ClubPost />
-        <ClubPost />
-        <ClubPost />
+    <main className=" flex flex-col mt-20 w-full ">
+      <div className="posts ">
         <ClubPost />
       </div>
 
