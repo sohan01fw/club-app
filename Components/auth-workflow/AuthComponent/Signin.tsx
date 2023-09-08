@@ -14,7 +14,7 @@ const Signin = () => {
 
   return (
     <div className="signIn_page grid place-items-center ">
-      <div className="   rounded-[13px] shadow-xl w-full ml-3 mr-3 mt-24 min-[380px]:mt-44  min-[460px]:w-[28rem] md:mt-[19rem] lg:mt-28  ">
+      <div className="   rounded-[13px] shadow-xl w-full ml-3 mr-3 min-[460px]:w-[28rem] pl-3 pr-3 mt-10  ">
         <Link
           href="/"
           className="  flex w-48 mt-[-30px] transition-transform transform active:scale-95 "

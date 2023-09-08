@@ -45,7 +45,7 @@ const UserForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="shadow-lg pl-3 flex flex-col pr-2 pt-2  "
+        className="shadow-lg flex flex-col  pl-3 pr-3 mt-20 "
       >
         <FormField
           control={form.control}
@@ -53,7 +53,7 @@ const UserForm = () => {
           render={({ field }) => (
             <FormItem className="flex items-center">
               <Avatar className="h-20 w-20">
-                <FormLabel className="border grid place-items-center rounded-full overflow-hidden w-full p-1">
+                <FormLabel className="border grid place-items-center rounded-full overflow-hidden w-full ">
                   {field.value ? (
                     <Image
                       src={field.value}
@@ -74,7 +74,7 @@ const UserForm = () => {
                   )}
                 </FormLabel>
               </Avatar>
-              <FormControl className="border ml-4">
+              <FormControl className="border ml-4 ">
                 <Input
                   type="file"
                   accept="image/*"
@@ -90,20 +90,20 @@ const UserForm = () => {
           control={form.control}
           name="username"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className=" h-32 mt-8">
               <FormLabel>Username</FormLabel>
-              <FormControl className="shadow-md rounded-sm ">
+              <FormControl className=" rounded-sm mt-10 ">
                 <Input
                   placeholder="Enter your profile name"
                   type="text"
-                  className="border-none  outline-[#5271FF] rounded-[5px] p-2 shadow-md mb-4 mt-1"
+                  className="border   rounded-[5px] p-2  mb-4 mt-1"
                   {...field}
                 />
               </FormControl>
-              <FormDescription>
+              <FormDescription className="whitespace-nowrap">
                 This is your public display name.
               </FormDescription>
-              <FormMessage />
+              <FormMessage className="whitespace-nowrap" />
             </FormItem>
           )}
         />
@@ -112,26 +112,27 @@ const UserForm = () => {
           control={form.control}
           name="bio"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className=" h-36">
               <FormLabel>Bio</FormLabel>
               <FormControl>
                 <Textarea
                   placeholder="Tell us a little bit about yourself"
-                  className="resize-none"
+                  className="resize-none "
                   {...field}
                 />
               </FormControl>
-              <FormDescription>
+              <FormDescription className="whitespace-nowrap">
                 You can <span>@mention</span> other users and organizations.
               </FormDescription>
-              <FormMessage />
+              <FormMessage className="whitespace-nowrap" />
             </FormItem>
           )}
         />
 
         <Button
+          variant="link"
           type="submit"
-          className="shadow-md transition-transform transform active:scale-95 m-10 "
+          className="shadow-md transition-transform transform active:scale-95 m-10 bg-[#5271FF]"
         >
           Submit
         </Button>
