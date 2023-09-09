@@ -2,7 +2,7 @@ import React from "react";
 
 const ClubPost = () => {
   return (
-    <div className=" ">
+    <div className="break-words flex flex-col flex-wrap ">
       <h2 className="ml-10">quan warento </h2>
       <p className="ml-20">New js feature is cool 😎😎😎</p>
       <br />

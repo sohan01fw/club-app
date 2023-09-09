@@ -22,11 +22,11 @@ const Logo = () => {
 
       {/* real is from donw................... */}
 
-      <div className="pagetitle w-full top-[4.5rem] absolute bg-white sm:hidden ">
+      {/* <div className="pagetitle w-full top-[4.5rem] absolute bg-white sm:hidden ">
         <h2 className=" font-bold text-[25px] m-2  w-20 text-center shadow-md ">
           Home
         </h2>
-      </div>
+      </div> */}
     </nav>
   );
 };

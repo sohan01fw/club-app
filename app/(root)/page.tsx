@@ -29,8 +29,11 @@ export default function Home() {
   }, []);
 
   return (
-    <main className=" flex flex-col mt-20 w-full sm:ml-40 ">
+    <main className=" flex flex-col mt-20 md:w-[90%] md:ml-60 sm:ml-40 border">
       <div className="posts ">
+        <ClubPost />
+        <ClubPost />
+        <ClubPost />
         <ClubPost />
       </div>
 

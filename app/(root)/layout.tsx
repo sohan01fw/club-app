@@ -26,7 +26,7 @@ export default function RootLayout({
       <AuthContext>
         <body className={`${inter.className} flex flex-col`}>
           <Logo />
-          <main className="flex justify-between ">
+          <main className="flex justify-between w-full ">
             <LeftNav />
             {children}
             <SuggestBar />

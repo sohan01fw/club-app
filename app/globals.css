@@ -12,4 +12,21 @@
   .clubcolorbg {
     background-color: #5271ff;
   }
+  .scrollbar {
+    /* Hide the scrollbar in Webkit-based browsers */
+    /* Remove scrollbar track */
+    ::-webkit-scrollbar {
+      width: 0;
+      background-color: transparent;
+    }
+
+    /* Remove scrollbar handle */
+    ::-webkit-scrollbar-thumb {
+      background-color: transparent;
+    }
+
+    /* Hide the scrollbar in Firefox */
+    /* This is for Firefox, which doesn't support Webkit styles */
+    scrollbar-width: none;
+  }
 }
