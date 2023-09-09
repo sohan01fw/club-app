@@ -29,7 +29,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className=" flex flex-col mt-20 w-full ">
+    <main className=" flex flex-col mt-20 w-full ml-40 ">
       <div className="posts ">
         <ClubPost />
       </div>
