@@ -7,27 +7,27 @@ export const LinkData = [
   {
     imgURL: "/Icons/search.svg",
     route: "/search",
-    lable: "search",
+    lable: "Search",
   },
   {
     imgURL: "/Icons/heart.svg",
     route: "/activity",
-    lable: "activity",
+    lable: "Activity",
   },
 
   {
     imgURL: "/Icons/create.svg",
     route: "/create",
-    lable: "create",
+    lable: "Create",
   },
   {
     imgURL: "/Icons/communities.svg",
     route: "/communities",
-    lable: "communities",
+    lable: "Communities",
   },
   {
     imgURL: "/Icons/setting.svg",
-    route: "/setting",
-    lable: "setting",
+    route: "/settings",
+    lable: "Settings",
   },
 ];
