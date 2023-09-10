@@ -10,7 +10,7 @@ const Sublnav = () => {
   const pathname = usePathname();
   return (
     <section>
-      <div className=" xl:hidden max-sm:hidden mt-28 border flex flex-col gap-2 w-20 place-items-center fixed ml-2 flex-1  h-full  z-10  left-0 bg-white     ">
+      <div className=" xl:hidden max-sm:hidden mt-28 flex flex-col gap-2 w-20 place-items-center fixed ml-2 flex-1  h-full  z-10  left-0 bg-white     ">
         {LinkData.map((data, index) => {
           const isActive =
             (pathname.includes(data.route) && data.route.length > 1) ||

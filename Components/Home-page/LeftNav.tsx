@@ -34,9 +34,9 @@ const LeftNav = () => {
                 alt={data.lable}
                 width={30}
                 height={30}
-                className=""
+                className="xl:h-[25px] xl:w-[25px] mt-[6px]"
               />
-              <h2 className="font-semibold text-xl  ">{data.lable}</h2>
+              <h2 className="font-semibold text-md mt-2  ">{data.lable}</h2>
             </Link>
           );
         })}

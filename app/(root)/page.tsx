@@ -4,6 +4,7 @@ import Logo from "@/Components/Home-page/TopNav";
 import { ModeToggle } from "@/Components/Togglemode";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Home() {
@@ -27,7 +28,6 @@ export default function Home() {
       GoogleUser();
     }
   }, []);
-
   return (
     <main className=" flex flex-col mt-20  sm:ml-28 md:ml-28 md:mr-5 lg:ml-40 xl:ml-40 2xl:ml-10   ">
       <div className="pagetitle  bg-white mb-8 ">
