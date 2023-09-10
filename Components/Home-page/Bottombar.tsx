@@ -8,7 +8,7 @@ import React from "react";
 const Bottombar = () => {
   const pathname = usePathname();
   return (
-    <section className="sm:hidden   border fixed w-full bottom-0 bg-white h-14 shadow-md rounded-md pt-1 pb-2">
+    <section className="sm:hidden   border fixed w-full bottom-0  bg-white h-14 shadow-md rounded-md pt-1 pb-2">
       <div className="flex  flex-row  justify-between m-1 ml-3 mr-3 ">
         {LinkData.map((data) => {
           const isActive =

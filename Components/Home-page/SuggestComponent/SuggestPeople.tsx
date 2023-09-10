@@ -4,7 +4,7 @@ import React from "react";
 const SuggestPeople = () => {
   return (
     <div>
-      <div className="title text-lg font-bold">People you may know</div>
+      <div className="title text-lg font-bold mb-5">People you may know</div>
       <div className="communities flex justify-center">
         <div className="profile"></div>
         <div className="community_name">Handsome Boy</div>

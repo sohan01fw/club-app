@@ -11,7 +11,7 @@ const LeftNav = () => {
   const pathname = usePathname();
   return (
     <section>
-      <div className=" max-xl:hidden mt-20 flex flex-col gap-2 py-5 ml-2 flex-1 w-48 h-full fixed z-10  left-0 bg-white  lg:pb-20    ">
+      <div className=" max-xl:hidden mt-20 flex flex-col gap-2 py-5 ml-2 pr-2 flex-1 w-48 h-full fixed z-10  left-0 shadow-md bg-white  lg:pb-20    ">
         {LinkData.map((data, index) => {
           const isActive =
             (pathname.includes(data.route) && data.route.length > 1) ||

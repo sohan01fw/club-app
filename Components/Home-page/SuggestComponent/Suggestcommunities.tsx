@@ -4,7 +4,7 @@ import React from "react";
 const Suggestcommunities = () => {
   return (
     <div>
-      <div className="title text-lg font-bold">Suggest Communities</div>
+      <div className="title text-lg font-bold mb-5">Suggest Communities</div>
       <div className="communities flex justify-center">
         <div className="profile"></div>
         <div className="community_name">nice community</div>
