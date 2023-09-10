@@ -1,12 +1,12 @@
 export const LinkData = [
   {
     imgURL: "/Icons/home.svg",
-    route: "/Home",
+    route: "/",
     lable: "Home",
   },
   {
     imgURL: "/Icons/search.svg",
-    route: "/search",
+    route: "/Search",
     lable: "Search",
   },
   {
