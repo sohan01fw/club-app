@@ -4,14 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { usePathname, useRouter } from "next/navigation";
-import Sublnav from "./SubleftNav/SubLNav";
 
-const LeftNav = () => {
+const Sublnav = () => {
   const router = useRouter();
   const pathname = usePathname();
   return (
     <section>
-      <div className=" max-xl:hidden mt-20 flex flex-col gap-2 py-5 ml-2 flex-1 w-48 h-full fixed z-10  left-0 bg-white  lg:pb-20    ">
+      <div className=" xl:hidden max-sm:hidden mt-28 border flex flex-col gap-2 w-20 place-items-center fixed ml-2 flex-1  h-full  z-10  left-0 bg-white     ">
         {LinkData.map((data, index) => {
           const isActive =
             (pathname.includes(data.route) && data.route.length > 1) ||
@@ -22,12 +21,12 @@ const LeftNav = () => {
           // Add extra margin (m-10) to the last item
           const itemClassName = ` flex gap-2 mb-10 mb-8 p-2 ${
             isActive && "clubcolorbg"
-          } ${isLastItem ? "absolute bottom-14 " : ""}`;
+          } ${isLastItem ? " " : ""}`;
           return (
             <Link
               key={data.lable}
               href={data.route}
-              className={` pr-20 rounded-lg hover:clubcolorbg ${itemClassName}`}
+              className={` rounded-lg hover:clubcolorbg ${itemClassName}`}
             >
               <Image
                 src={data.imgURL}
@@ -36,14 +35,12 @@ const LeftNav = () => {
                 height={30}
                 className=""
               />
-              <h2 className="font-semibold text-xl  ">{data.lable}</h2>
             </Link>
           );
         })}
       </div>
-      <Sublnav />
     </section>
   );
 };
 
-export default LeftNav;
+export default Sublnav;
