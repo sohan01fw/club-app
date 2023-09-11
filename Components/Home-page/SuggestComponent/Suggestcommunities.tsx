@@ -14,6 +14,15 @@ const Suggestcommunities = () => {
           </Button>
         </div>
       </div>
+      <div className="communities flex justify-center">
+        <div className="profile"></div>
+        <div className="community_name">docushbag community</div>
+        <div className="joinBtn">
+          <Button variant="link" className="clubcolorbg shadow-lg">
+            Join
+          </Button>
+        </div>
+      </div>
     </div>
   );
 };
