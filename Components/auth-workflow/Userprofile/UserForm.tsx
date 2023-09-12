@@ -21,12 +21,15 @@ import { Textarea } from "@/Components/ui/textarea";
 import { Slider } from "@/Components/ui/slider";
 import { Avatar, AvatarFallback } from "@/Components/ui/avatar";
 
-const UserForm = () => {
+type props = {
+  user: { email: string; name: string; image: string };
+};
+const UserForm = ({ user }: props) => {
   const form = useForm<z.infer<typeof UserValidaton>>({
     resolver: zodResolver(UserValidaton),
     defaultValues: {
-      profile_pic: "",
-      username: "",
+      profile_pic: user.image || "",
+      username: user.name || "",
       bio: "",
     },
   });
@@ -134,7 +137,7 @@ const UserForm = () => {
           type="submit"
           className="shadow-md transition-transform transform active:scale-95 m-10 bg-[#5271FF]"
         >
-          Submit
+          Continue
         </Button>
       </form>
     </Form>
