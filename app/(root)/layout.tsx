@@ -8,6 +8,7 @@ import Logo from "@/Components/Home-page/TopNav";
 import LeftNav from "@/Components/Home-page/LeftNav";
 import SuggestBar from "@/Components/Home-page/SuggestBar";
 import Bottombar from "@/Components/Home-page/Bottombar";
+import getSessionUser from "@/lib/getSessionUser";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
   description: "Best way to hangout",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;

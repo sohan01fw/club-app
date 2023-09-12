@@ -35,7 +35,7 @@ const Dropdown = () => {
         <div className="profile flex transition-transform transform active:scale-95">
           <Avatar className="border mt-3 mr-2   ">
             <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarFallback>Club</AvatarFallback>
           </Avatar>
           <div className="nameandbtn mt-5 mr-2 max-md:hidden ">
             <h3 className="font-semibold">{session?.user?.email}</h3>

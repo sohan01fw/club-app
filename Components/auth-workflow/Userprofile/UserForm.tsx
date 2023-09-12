@@ -10,7 +10,7 @@ import {
   FormMessage,
 } from "@/Components/ui/form";
 import { Input } from "@/Components/ui/input";
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,11 +20,13 @@ import Image from "next/image";
 import { Textarea } from "@/Components/ui/textarea";
 import { Slider } from "@/Components/ui/slider";
 import { Avatar, AvatarFallback } from "@/Components/ui/avatar";
+import { isBase64Image } from "@/lib/utils";
 
 type props = {
   user: { email: string; name: string; image: string };
 };
 const UserForm = ({ user }: props) => {
+  const [files, setFiles] = useState<File[]>([]);
   const form = useForm<z.infer<typeof UserValidaton>>({
     resolver: zodResolver(UserValidaton),
     defaultValues: {
@@ -34,15 +36,35 @@ const UserForm = ({ user }: props) => {
     },
   });
   const handleImage = (
-    e: ChangeEvent,
+    e: ChangeEvent<HTMLInputElement>,
     fieldChange: (value: string) => void
   ) => {
     e.preventDefault();
+    const fileReader = new FileReader();
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+
+      setFiles(Array.from(e.target.files));
+
+      if (!file.type.includes("image")) return;
+
+      fileReader.onload = async (event) => {
+        const imageDataUrl = event.target?.result?.toString() || "";
+        console.log(imageDataUrl);
+        fieldChange(imageDataUrl);
+      };
+      fileReader.readAsDataURL(file);
+    }
   };
   function onSubmit(values: z.infer<typeof UserValidaton>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
+    const blob = values.profile_pic;
+
+    const hasImageChanged = isBase64Image(blob);
+    if (hasImageChanged) {
+    }
   }
   return (
     <Form {...form}>
