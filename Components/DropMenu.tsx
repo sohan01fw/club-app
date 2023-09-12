@@ -2,14 +2,26 @@
 // components/Dropdown.js
 import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { signOut, useSession } from "next-auth/react";
+import Link from "next/link";
+import { redirect, useRouter } from "next/navigation";
 
 const Dropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const { data: session, status } = useSession();
+  console.log(session);
+  const router = useRouter();
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleSignOut = async () => {
+    const signOutPromise = signOut();
+
+    // Once signOut is complete, navigate to the signin page
+    await signOutPromise;
+    router.push("/signin");
+  };
   return (
     <div className="relative inline-block text-left">
       <button
@@ -26,7 +38,7 @@ const Dropdown = () => {
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
           <div className="nameandbtn mt-5 mr-2 max-md:hidden ">
-            <h3 className="font-semibold">John Doe</h3>
+            <h3 className="font-semibold">{session?.user?.email}</h3>
             {/* <Button variant="link" className=" clubcolorbg">
             SignOut
           </Button> */}
@@ -36,7 +48,7 @@ const Dropdown = () => {
 
       {isOpen && (
         <div
-          className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100"
+          className="origin-top-right absolute right-3  mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100"
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="options-menu"
@@ -44,20 +56,19 @@ const Dropdown = () => {
         >
           {/* Dropdown options */}
           <div className="py-1">
-            <a
-              href="#"
+            <Link
+              href="/profile"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
               role="menuitem"
             >
-              Option 1
-            </a>
-            <a
-              href="#"
+              profile
+            </Link>
+            <div
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
               role="menuitem"
             >
-              Option 2
-            </a>
+              <button onClick={handleSignOut}>SignOut</button>
+            </div>
             {/* Add more options as needed */}
           </div>
         </div>

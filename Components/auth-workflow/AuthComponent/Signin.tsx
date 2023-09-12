@@ -36,7 +36,9 @@ const Signin = () => {
           <div
             className="google  shadow-md  p-2 point mr-2  transition-transform transform active:scale-95"
             onClick={() => {
-              signIn("google");
+              signIn("google", {
+                callbackUrl: "http://localhost:3000/profile",
+              });
             }}
           >
             <img src="/logo/google.png" alt="" className="" />
@@ -44,7 +46,9 @@ const Signin = () => {
           <div
             className="facebook  p-2 point  shadow-md transition-transform transform active:scale-95 mr-2 "
             onClick={() => {
-              signIn("facebook");
+              signIn("facebook", {
+                callbackUrl: "http://localhost:3000/profile",
+              });
             }}
           >
             <img src="/logo/facebook.png" alt="" />
@@ -52,7 +56,9 @@ const Signin = () => {
           <div
             className="github p-2 point mr-2 shadow-md transition-transform transform active:scale-95"
             onClick={() => {
-              signIn("github");
+              signIn("github", {
+                callbackUrl: "http://localhost:3000/profile",
+              });
             }}
           >
             <img src="/logo/githubpic.png" alt="" />

@@ -26,7 +26,7 @@ const AuthForm = () => {
       email: values.email,
       password: values.password,
       redirect: true,
-      callbackUrl: "/",
+      callbackUrl: "/profile",
     });
   };
   //form validation

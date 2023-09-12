@@ -9,8 +9,8 @@ type UserRes = {
 export async function handlePOSTRequest(request: Request) {
   const res = await request?.json();
   const { email, password }: UserRes = res;
-  /*   console.log({ email, password });
-   */ /* if (email) {
+  console.log({ email, password });
+  /* if (email) {
     const findEmail = await User.findOne({ email });
     if (!findEmail) {
       StoreUser({ email, password });
