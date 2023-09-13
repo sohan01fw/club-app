@@ -9,6 +9,7 @@ import LeftNav from "@/Components/Home-page/LeftNav";
 import SuggestBar from "@/Components/Home-page/SuggestBar";
 import Bottombar from "@/Components/Home-page/Bottombar";
 import getSessionUser from "@/lib/getSessionUser";
+import { json } from "stream/consumers";
 
 const inter = Inter({ subsets: ["latin"] });
 

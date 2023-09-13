@@ -9,8 +9,8 @@ import { useEffect } from "react";
 
 export default function Home() {
   const { data: session, status } = useSession();
-  console.log(session);
-  const User = session?.user;
+  /*   console.log(session);
+   */ const User = session?.user;
   const email = User?.email;
 
   const GoogleUser = async () => {
