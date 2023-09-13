@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
-const userSchema = new Schema(
+const authUserSchema = new Schema(
   {
     id: String,
     email: {
@@ -15,6 +15,6 @@ const userSchema = new Schema(
 );
 
 const AuthUser =
-  mongoose.models.Users || mongoose.model("AuthUsers", userSchema);
+  mongoose.models.AuthUsers || mongoose.model("AuthUsers", authUserSchema);
 
 export default AuthUser;
