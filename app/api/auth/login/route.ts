@@ -1,5 +1,5 @@
-import User from "@/lib/Models/user.model";
-import { StoreUser } from "@/lib/actions/user.action";
+import User from "@/lib/Models/authuser.model";
+import { StoreUser } from "@/lib/actions/authuser.action";
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 type UserRes = {

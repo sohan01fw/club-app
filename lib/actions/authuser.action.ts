@@ -1,6 +1,6 @@
 "use server";
 
-import User from "../Models/user.model";
+import User from "../Models/authuser.model";
 import { ConnectToDB } from "../mongoose";
 
 type user = {
@@ -8,18 +8,12 @@ type user = {
   email: string;
   password: string;
 };
-export async function StoreUser({
-  id,
-  email,
-  password,
-}: /*   name, */
-user): Promise<void> {
+export async function StoreUser({ id, email, password }: user): Promise<void> {
   ConnectToDB();
 
   const saveUser = new User({
     id,
     email,
-
     password,
   });
 

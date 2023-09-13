@@ -21,12 +21,14 @@ import { Textarea } from "@/Components/ui/textarea";
 import { Slider } from "@/Components/ui/slider";
 import { Avatar, AvatarFallback } from "@/Components/ui/avatar";
 import { isBase64Image } from "@/lib/utils";
+import { useUploadThing } from "@/lib/uploadthing";
 
 type props = {
   user: { email: string; name: string; image: string };
 };
 const UserForm = ({ user }: props) => {
   const [files, setFiles] = useState<File[]>([]);
+  const { startUpload } = useUploadThing("imageUploader");
   const form = useForm<z.infer<typeof UserValidaton>>({
     resolver: zodResolver(UserValidaton),
     defaultValues: {
@@ -56,7 +58,7 @@ const UserForm = ({ user }: props) => {
       fileReader.readAsDataURL(file);
     }
   };
-  function onSubmit(values: z.infer<typeof UserValidaton>) {
+  async function onSubmit(values: z.infer<typeof UserValidaton>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
@@ -64,6 +66,11 @@ const UserForm = ({ user }: props) => {
 
     const hasImageChanged = isBase64Image(blob);
     if (hasImageChanged) {
+      const imgRes = await startUpload(files);
+
+      if (imgRes && imgRes[0].url) {
+        values.profile_pic = imgRes[0].url;
+      }
     }
   }
   return (

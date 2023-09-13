@@ -16,11 +16,10 @@ const Dropdown = () => {
   };
 
   const handleSignOut = async () => {
-    const signOutPromise = signOut();
+    const signOutPromise = signOut({ callbackUrl: "/signin" });
 
     // Once signOut is complete, navigate to the signin page
     await signOutPromise;
-    router.push("/signin");
   };
   return (
     <div className="relative inline-block text-left">
