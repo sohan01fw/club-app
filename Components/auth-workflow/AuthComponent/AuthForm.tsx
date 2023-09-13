@@ -26,7 +26,7 @@ const AuthForm = () => {
       email: values.email,
       password: values.password,
       redirect: true,
-      callbackUrl: "/profile",
+      callbackUrl: "http://localhost:3000/profile",
     });
   };
   //form validation

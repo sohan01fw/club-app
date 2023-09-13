@@ -4,11 +4,12 @@ import User from "../Models/user.model";
 import { ConnectToDB } from "../mongoose";
 
 type user = {
+  id: string;
   email: string;
-  /* name: string; */
   password: string;
 };
 export async function StoreUser({
+  id,
   email,
   password,
 }: /*   name, */
@@ -16,8 +17,9 @@ user): Promise<void> {
   ConnectToDB();
 
   const saveUser = new User({
+    id,
     email,
-    /*   name, */
+
     password,
   });
 
