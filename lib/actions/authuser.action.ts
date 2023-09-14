@@ -8,6 +8,7 @@ type user = {
   email: string;
   password: string;
 };
+// to store the user in database
 export async function StoreUser({ id, email, password }: user): Promise<void> {
   ConnectToDB();
 
@@ -18,4 +19,8 @@ export async function StoreUser({ id, email, password }: user): Promise<void> {
   });
 
   await saveUser.save();
+}
+
+export async function UserProfile(): Promise<void> {
+  ConnectToDB();
 }

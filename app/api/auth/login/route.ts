@@ -13,6 +13,7 @@ export async function handlePOSTRequest(request: Request) {
     const res = await request?.json();
     const userId = uuidv4();
     const { email, password }: UserRes = res;
+    console.log({ email, password });
 
     if (email) {
       const findEmail = await User.findOne({ email });
