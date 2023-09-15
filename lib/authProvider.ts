@@ -58,10 +58,19 @@ export const authOptions: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
+    /* async signIn({ user, account, profile, email, credentials }) {
+      if (profile?.email) {
+        console.log(user.id);
+        // Save the user's email to your database
+      }
+      return true;
+    }, */
+
     async session({ session, token, user }) {
       // Send properties to the client, like an access_token and user id from a provider.
       /* session.accessToken = token.accessToken
       session.user.id = token.id */
+      console.log(session);
       return { ...session, id: token.sub };
     },
   },

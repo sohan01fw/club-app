@@ -12,8 +12,8 @@ const page = async () => {
 
   const getSessionData = JSON.stringify(session, null, 2);
   const Data: userdata = JSON.parse(getSessionData);
-
-  const userData = {
+  /*   console.log("userdata from client", Data);
+   */ const userData = {
     userId: Data?.id,
     email: Data?.user?.email,
     name: Data?.user?.name,
