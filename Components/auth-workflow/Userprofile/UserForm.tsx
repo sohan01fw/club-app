@@ -24,7 +24,7 @@ import { isBase64Image } from "@/lib/utils";
 import { useUploadThing } from "@/lib/uploadthing";
 
 type props = {
-  user: { email: string; name: string; image: string };
+  user: { userId: string; email: string; name: string; image: string };
 };
 const UserForm = ({ user }: props) => {
   const [files, setFiles] = useState<File[]>([]);
@@ -61,7 +61,7 @@ const UserForm = ({ user }: props) => {
   async function onSubmit(values: z.infer<typeof UserValidaton>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
+
     const blob = values.profile_pic;
 
     const hasImageChanged = isBase64Image(blob);

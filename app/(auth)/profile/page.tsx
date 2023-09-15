@@ -3,13 +3,21 @@ import { authOptions } from "@/lib/authProvider";
 import { getServerSession } from "next-auth";
 import React from "react";
 
+type userdata = {
+  id: string;
+  user: { email: string; name: string; image: string };
+};
 const page = async () => {
   const session = await getServerSession(authOptions);
-  console.log(session);
+
+  const getSessionData = JSON.stringify(session, null, 2);
+  const Data: userdata = JSON.parse(getSessionData);
+
   const userData = {
-    email: session?.user?.email ?? "",
-    name: session?.user?.name ?? "",
-    image: session?.user?.image ?? "",
+    userId: Data?.id,
+    email: Data?.user?.email,
+    name: Data?.user?.name,
+    image: Data?.user?.image,
   };
   return (
     <div className=" grid place-items-center">
