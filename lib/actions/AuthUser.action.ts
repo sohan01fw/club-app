@@ -9,7 +9,6 @@ type Authuser = {
   email: string;
   password: string;
 };
-//Type def for user profile
 
 // to store the user in database
 export async function StoreUser({
@@ -18,17 +17,15 @@ export async function StoreUser({
   password,
 }: Authuser): Promise<void> {
   ConnectToDB();
+  try {
+    const saveUser = new AuthUser({
+      userId,
+      email,
+      password,
+    });
 
-  const saveUser = new AuthUser({
-    userId,
-    email,
-    password,
-  });
-
-  await saveUser.save();
-}
-
-//insert user proifle and update if needed
-export async function UserProfile(): Promise<void> {
-  ConnectToDB();
+    await saveUser.save();
+  } catch (error: any) {
+    throw new Error("failed to authenticate user", error.message);
+  }
 }

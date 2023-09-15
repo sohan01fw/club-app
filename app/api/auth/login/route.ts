@@ -1,5 +1,5 @@
-import User from "@/lib/Models/authuser.model";
-import { StoreUser } from "@/lib/actions/User.action";
+import AuthUser from "@/lib/Models/authuser.model";
+import { StoreUser } from "@/lib/actions/AuthUser.action";
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 
@@ -12,19 +12,13 @@ export async function handlePOSTRequest(request: Request) {
   try {
     const res = await request?.json();
     const userId = uuidv4();
-    const { email, password }: UserRes = res;
-    /*     console.log({ email, password });
-     */
-    if (userId) {
-      const findUserId = await User.findOne({ userId });
 
-      if (!findUserId) {
-        console.log(userId);
-        await StoreUser({ userId: userId, email: email, password: password });
-      }
+    if (res.email && !AuthUser.findOne({ userId })) {
+      await StoreUser({ userId, email: res.email, password: res.password });
+      return NextResponse.json({ message: "user created successfully" });
     }
 
-    return NextResponse.json({ id: userId, email, password });
+    return NextResponse.json({ message: "User already exists" });
   } catch (error) {
     // Handle errors here
     console.error("Error:", error);

@@ -30,14 +30,14 @@ const UserProfileSchema = new Schema({
       ref: "Communities",
     },
   ],
-  onborded: {
+  onboarded: {
     type: Boolean,
     default: false,
   },
 });
 
-const UserProfile =
+const userProfile =
   mongoose.models.UserProfiles ||
   mongoose.model("UserProfiles", UserProfileSchema);
 
-export default UserProfile;
+export default userProfile;

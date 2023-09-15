@@ -22,12 +22,16 @@ import { Slider } from "@/Components/ui/slider";
 import { Avatar, AvatarFallback } from "@/Components/ui/avatar";
 import { isBase64Image } from "@/lib/utils";
 import { useUploadThing } from "@/lib/uploadthing";
+import { usePathname, useRouter } from "next/navigation";
+import { UserProfile } from "@/lib/actions/UserProfile.action";
 
 type props = {
   user: { userId: string; email: string; name: string; image: string };
 };
 const UserForm = ({ user }: props) => {
   const [files, setFiles] = useState<File[]>([]);
+  const pathname = usePathname();
+  const router = useRouter();
   const { startUpload } = useUploadThing("imageUploader");
   const form = useForm<z.infer<typeof UserValidaton>>({
     resolver: zodResolver(UserValidaton),
@@ -71,6 +75,21 @@ const UserForm = ({ user }: props) => {
       if (imgRes && imgRes[0].url) {
         values.profile_pic = imgRes[0].url;
       }
+    }
+
+    //inserting or updating user profile in server
+    await UserProfile({
+      userId: user.userId,
+      username: values.username,
+      profile_pic: values.profile_pic,
+      bio: values.bio,
+      path: pathname,
+    });
+
+    if (pathname === "profile/edit") {
+      router.back();
+    } else {
+      router.push("/");
     }
   }
   return (
