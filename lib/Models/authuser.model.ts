@@ -4,7 +4,6 @@ const { Schema } = mongoose;
 
 const authUserSchema = new Schema(
   {
-    userId: String,
     email: {
       type: String,
       required: true,
