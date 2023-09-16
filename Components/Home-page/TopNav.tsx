@@ -1,8 +1,26 @@
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Dropdown from "../DropMenu";
+import { getSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authProvider";
+import { getUserProfile } from "@/lib/DataRetriver/getUserProfile";
 
-const Logo = () => {
+type userprofiledata = {
+  username: string;
+  profile_pic: string;
+};
+const Logo = async () => {
+  const getUser = await getServerSession(authOptions);
+  const getUserObj = JSON.stringify(getUser);
+  const parseGetUser = JSON.parse(getUserObj);
+  const id = parseGetUser.id;
+  //getting user profile data from server
+  const profileData: userprofiledata = await getUserProfile(id);
+
+  const name = profileData.username;
+  const img = profileData.profile_pic;
+
   return (
     <nav className="flex fixed w-full bg-white h-[5rem] top-0 z-20 justify-between lg:h-[4rem] ">
       <div className="  flex h-36 w-48  mt-[-30px]  transition-transform transform active:scale-95 lg:h-28 lg:w-36 lg:mt-[-25px] ">
@@ -17,7 +35,7 @@ const Logo = () => {
       </div>
       {/* not real is from donw.................... */}
       <div className="dropdown">
-        <Dropdown />
+        <Dropdown name={name} image={img} />
       </div>
 
       {/* real is from donw................... */}

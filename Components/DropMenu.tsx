@@ -6,10 +6,13 @@ import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { redirect, useRouter } from "next/navigation";
 
-const Dropdown = () => {
+type UserProps = {
+  name: string;
+  image: string;
+};
+const Dropdown = ({ name, image }: UserProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { data: session, status } = useSession();
-  console.log(session);
+
   const router = useRouter();
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -33,11 +36,11 @@ const Dropdown = () => {
       >
         <div className="profile flex transition-transform transform active:scale-95">
           <Avatar className="border mt-3 mr-2   ">
-            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+            <AvatarImage src={`${image}`} alt="@shadcn" />
             <AvatarFallback>Club</AvatarFallback>
           </Avatar>
           <div className="nameandbtn mt-5 mr-2 max-md:hidden ">
-            <h3 className="font-semibold">{session?.user?.email}</h3>
+            <h3 className="font-semibold">{name}</h3>
             {/* <Button variant="link" className=" clubcolorbg">
             SignOut
           </Button> */}

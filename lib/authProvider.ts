@@ -84,7 +84,7 @@ export const authOptions: NextAuthOptions = {
         const userData = await AuthUser.findOne({
           email: userEmailFormGoogle,
         });
-        console.log("emailid form google", userData._id);
+
         // Save the user's email to your database
         if (!userData) {
           await StoreUser({ email: userEmailFormGoogle, password: "" });

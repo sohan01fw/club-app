@@ -3,13 +3,10 @@ import "../globals.css";
 import type { Metadata } from "next";
 
 import { Inter } from "next/font/google";
-import { ThemeProvider } from "@/Components/Theme-provider";
 import Logo from "@/Components/Home-page/TopNav";
 import LeftNav from "@/Components/Home-page/LeftNav";
 import SuggestBar from "@/Components/Home-page/SuggestBar";
 import Bottombar from "@/Components/Home-page/Bottombar";
-import getSessionUser from "@/lib/getSessionUser";
-import { json } from "stream/consumers";
 
 const inter = Inter({ subsets: ["latin"] });
 
