@@ -10,14 +10,19 @@ type Authuser = {
 };
 type googleAuthuser = {
   email: string;
+  password: string;
 };
 
 // to store the user in database
-export async function StoreUser({ email }: googleAuthuser): Promise<void> {
+export async function StoreUser({
+  email,
+  password,
+}: googleAuthuser): Promise<void> {
   ConnectToDB();
   try {
     const saveUser = new AuthUser({
       email,
+      password,
     });
 
     await saveUser.save();

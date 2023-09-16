@@ -12,6 +12,7 @@ const page = async () => {
 
   const getSessionData = JSON.stringify(session, null, 2);
   const Data: userdata = JSON.parse(getSessionData);
+
   console.log("userdata from client", Data);
   const userData = {
     userId: Data?.id,

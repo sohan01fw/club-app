@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
-import { boolean } from "zod";
+import { boolean, string } from "zod";
 
 const { Schema } = mongoose;
 
 const UserProfileSchema = new Schema({
   userId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: "AuthUsers",
     required: true,
   },

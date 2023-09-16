@@ -41,24 +41,28 @@ export const authOptions: NextAuthOptions = {
         const password = credentials?.password || "";
 
         try {
-          const user = await AuthUser.findOne({
-            email: credentials?.email,
-          });
+          let user = await AuthUser.findOne({ email });
 
-          if (!user || user?.password === "") {
-            await updateStoreUser({ email, password });
+          if (!user) {
+            // If user doesn't exist, create and store the user
+            const userStoredData = await StoreUser({ email, password });
 
-            const userData = await AuthUser.findOne({
-              email: credentials?.email,
-            });
-
-            return {
-              ...userData,
-              redirectUrl: "/profile", // Specify the profile page URL
-            };
+            // Fetch the newly created user
+            user = await AuthUser.findOne({ email });
           }
 
-          return user;
+          if (user?.password === "") {
+            // If user exists but has an empty password, update the password
+            await updateStoreUser({ email, password });
+
+            // Fetch the updated user
+            user = await AuthUser.findOne({ email });
+          }
+
+          return {
+            ...user.toObject(), // Convert the Mongoose document to a plain object
+            redirectUrl: "/profile",
+          };
         } catch (error: any) {
           throw new Error("error user not save to db", error);
         }
@@ -77,9 +81,14 @@ export const authOptions: NextAuthOptions = {
     async signIn({ user, account, profile, email, credentials }) {
       if (profile?.email) {
         const userEmailFormGoogle = profile.email;
-
+        const userData = await AuthUser.findOne({
+          email: userEmailFormGoogle,
+        });
+        console.log("emailid form google", userData._id);
         // Save the user's email to your database
-        await StoreUser({ email: userEmailFormGoogle });
+        if (!userData) {
+          await StoreUser({ email: userEmailFormGoogle, password: "" });
+        }
       }
       return true;
     },
@@ -88,8 +97,13 @@ export const authOptions: NextAuthOptions = {
       // Send properties to the client, like an access_token and user id from a provider.
       /* session.accessToken = token.accessToken
       session.user.id = token.id */
-      console.log("sesssion", session);
-      return { ...session, id: token.sub };
+
+      const userEmail = session.user?.email;
+      const userDta = await AuthUser.findOne({
+        email: userEmail,
+      });
+
+      return { ...session, id: userDta._id.toString() };
     },
   },
 };
