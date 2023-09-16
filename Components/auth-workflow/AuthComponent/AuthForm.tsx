@@ -1,5 +1,4 @@
 "use client";
-
 import { Button } from "@/Components/ui/button";
 import {
   Form,
@@ -10,36 +9,32 @@ import {
   FormMessage,
 } from "@/Components/ui/form";
 import { Input } from "@/Components/ui/input";
+import { login } from "@/lib/login";
 import { UserAuthvalidation } from "@/lib/validations/UserAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signIn } from "next-auth/react";
 import React from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+
+//for default form values
+const defaultFormValues = {
+  email: "",
+  password: "",
+};
 const AuthForm = () => {
-  interface userValue {
-    email: string;
-    password: string;
-  }
-  const login = async (values: userValue) => {
-    const res = await signIn("credentials", {
-      email: values.email,
-      password: values.password,
-      redirect: true,
-      callbackUrl: "http://localhost:3000/profile",
-    });
-  };
   //form validation
   const form = useForm<z.infer<typeof UserAuthvalidation>>({
     resolver: zodResolver(UserAuthvalidation),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
+    defaultValues: defaultFormValues,
   });
 
   const onSubmit = (values: z.infer<typeof UserAuthvalidation>) => {
-    login(values);
+    try {
+      const x = login(values);
+      console.log(x);
+    } catch (error) {
+      console.log("login failed", error);
+    }
   };
 
   return (
@@ -54,7 +49,7 @@ const AuthForm = () => {
               <FormControl>
                 <Input
                   placeholder="JohnDoe@gmail.com"
-                  className=""
+                  className="shadow-md"
                   type="email"
                   {...field}
                 />
@@ -68,10 +63,15 @@ const AuthForm = () => {
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input type="password" placeholder="password...." {...field} />
+            <FormItem className="mt-3">
+              <FormLabel className="">Password</FormLabel>
+              <FormControl className="">
+                <Input
+                  type="password"
+                  className="shadow-md"
+                  placeholder="password...."
+                  {...field}
+                />
               </FormControl>
               <FormMessage className="font-medium text-[11px]" />
             </FormItem>
@@ -80,7 +80,7 @@ const AuthForm = () => {
         <Button
           variant="link"
           type="submit"
-          className="w-full mr-4 mt-5 mb-5 transition-transform transform active:scale-95 bg-[#5271FF]"
+          className="w-full mr-4 mt-8 mb-5 transition-transform transform active:scale-95 bg-[#5271FF]"
         >
           Submit
         </Button>

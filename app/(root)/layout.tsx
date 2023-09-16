@@ -7,6 +7,9 @@ import Logo from "@/Components/Home-page/TopNav";
 import LeftNav from "@/Components/Home-page/LeftNav";
 import SuggestBar from "@/Components/Home-page/SuggestBar";
 import Bottombar from "@/Components/Home-page/Bottombar";
+import { Suspense } from "react";
+import Loading from "./loading";
+import { ConnectToDB } from "@/lib/mongoose";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,6 +23,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  ConnectToDB();
   return (
     <html lang="en">
       <AuthContext>
@@ -27,7 +31,8 @@ export default async function RootLayout({
           <Logo />
           <main className="flex justify-between w-full ">
             <LeftNav />
-            {children}
+            <Suspense fallback={<Loading />}>{children}</Suspense>
+
             <SuggestBar />
           </main>
           <Bottombar />

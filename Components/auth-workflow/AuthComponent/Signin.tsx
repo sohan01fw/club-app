@@ -1,17 +1,8 @@
 "use client";
 import { signIn } from "next-auth/react";
-import Link from "next/link";
-import React, { useState } from "react";
-import { useFormik } from "formik";
-import AuthForm from "./AuthForm";
+import React from "react";
 
 const Signin = () => {
-  /* const signInWithGoogle = async () => {
-    const res = await signIn("google",{
-      callbackUrl: "http://localhost:3000/",
-    });
-  }; */
-
   return (
     <div className="  ">
       <div className="  flex w-48 mt-[-30px] transition-transform transform active:scale-95 ">
@@ -27,34 +18,34 @@ const Signin = () => {
 
       <div className="providers flex justify-around  w-[10rem] ml-3 mt-[-5px] mb-5 ">
         <div
-          className="google  shadow-md  p-2 point mr-2  transition-transform transform active:scale-95"
+          className="google cursor shadow-md  p-2 point mr-2  transition-transform transform active:scale-95"
           onClick={() => {
             signIn("google", {
               callbackUrl: "http://localhost:3000/profile",
             });
           }}
         >
-          <img src="/logo/google.png" alt="" className="" />
+          <img src="/logo/google.png" alt="logo" className="google_logo" />
         </div>
         <div
-          className="facebook  p-2 point  shadow-md transition-transform transform active:scale-95 mr-2 "
+          className="facebook cursor   p-2 point  shadow-md transition-transform transform active:scale-95 mr-2 "
           onClick={() => {
             signIn("facebook", {
               callbackUrl: "http://localhost:3000/profile",
             });
           }}
         >
-          <img src="/logo/facebook.png" alt="" />
+          <img src="/logo/facebook.png" alt="facebook_logo" />
         </div>
         <div
-          className="github p-2 point mr-2 shadow-md transition-transform transform active:scale-95"
+          className="github cursor  p-2 point mr-2 shadow-md transition-transform transform active:scale-95"
           onClick={() => {
             signIn("github", {
               callbackUrl: "http://localhost:3000/profile",
             });
           }}
         >
-          <img src="/logo/githubpic.png" alt="" />
+          <img src="/logo/githubpic.png" alt="github_logo" />
         </div>
       </div>
     </div>

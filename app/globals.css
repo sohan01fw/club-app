@@ -12,4 +12,7 @@
   .clubcolorbg {
     background-color: #5271ff;
   }
+  .cursor {
+    cursor: pointer;
+  }
 }

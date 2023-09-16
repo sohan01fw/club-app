@@ -3,7 +3,6 @@ import GithubProvider from "next-auth/providers/github";
 import FacebookProvider from "next-auth/providers/facebook";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { ConnectToDB } from "./mongoose";
 import AuthUser from "./Models/authuser.model";
 import { StoreUser, updateStoreUser } from "./actions/AuthUser.action";
 export const authOptions: NextAuthOptions = {
@@ -36,7 +35,6 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        ConnectToDB();
         const email = credentials?.email || "";
         const password = credentials?.password || "";
 
@@ -57,6 +55,9 @@ export const authOptions: NextAuthOptions = {
 
             // Fetch the updated user
             user = await AuthUser.findOne({ email });
+          }
+
+          if (user?.password !== password) {
           }
 
           return {

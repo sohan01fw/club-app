@@ -20,10 +20,8 @@ export async function UserProfile({
   bio,
   path,
 }: userprofile): Promise<void> {
-  ConnectToDB();
-
   try {
-    await userProfile.findByIdAndUpdate(
+    const updatedProfile = await userProfile.findByIdAndUpdate(
       userId, // Pass userId as a string
       { username, profile_pic, bio, onboarded: true }, // Update the correct fields, e.g., 'username'
       { new: true, upsert: true }
@@ -32,6 +30,8 @@ export async function UserProfile({
     if (path === "/profile") {
       revalidatePath(path);
     }
+
+    return updatedProfile;
   } catch (error: any) {
     throw new Error("Failed to create/update user profile: ", error.message);
   }
