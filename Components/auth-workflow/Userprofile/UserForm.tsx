@@ -56,7 +56,7 @@ const UserForm = ({ user }: props) => {
 
       fileReader.onload = async (event) => {
         const imageDataUrl = event.target?.result?.toString() || "";
-        console.log(imageDataUrl);
+
         fieldChange(imageDataUrl);
       };
       fileReader.readAsDataURL(file);
@@ -78,6 +78,7 @@ const UserForm = ({ user }: props) => {
     }
 
     //inserting or updating user profile in server
+
     await UserProfile({
       userId: user.userId,
       username: values.username,
@@ -86,10 +87,10 @@ const UserForm = ({ user }: props) => {
       path: pathname,
     });
 
-    if (pathname === "profile/edit") {
-      router.back();
-    } else {
+    if (pathname === "/profile") {
       router.push("/");
+    } else {
+      router.back();
     }
   }
   return (

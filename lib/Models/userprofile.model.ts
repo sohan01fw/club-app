@@ -1,12 +1,11 @@
 import mongoose from "mongoose";
-import { boolean, string } from "zod";
 
 const { Schema } = mongoose;
 
 const UserProfileSchema = new Schema({
   userId: {
     type: String,
-    ref: "AuthUsers",
+
     required: true,
   },
   profile_pic: String,
@@ -36,8 +35,6 @@ const UserProfileSchema = new Schema({
   },
 });
 
-const userProfile =
-  mongoose.models.UserProfiles ||
-  mongoose.model("UserProfiles", UserProfileSchema);
+const userProfile = mongoose.model("UserProfiles", UserProfileSchema);
 
 export default userProfile;
