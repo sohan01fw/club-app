@@ -28,9 +28,9 @@ const AuthForm = () => {
     defaultValues: defaultFormValues,
   });
 
-  const onSubmit = (values: z.infer<typeof UserAuthvalidation>) => {
+  const onSubmit = async (values: z.infer<typeof UserAuthvalidation>) => {
     try {
-      const x = login(values);
+      const x = await login(values);
       console.log(x);
     } catch (error) {
       console.log("login failed", error);

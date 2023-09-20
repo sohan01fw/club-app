@@ -58,6 +58,7 @@ export const authOptions: NextAuthOptions = {
           }
 
           if (user?.password !== password) {
+            user = { error: "Password didn't matched!!!" };
           }
 
           return {
