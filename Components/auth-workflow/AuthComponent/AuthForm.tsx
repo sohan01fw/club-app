@@ -9,9 +9,13 @@ import {
   FormMessage,
 } from "@/Components/ui/form";
 import { Input } from "@/Components/ui/input";
-import { login } from "@/lib/login";
+import { ToastAction } from "@/Components/ui/toast";
+import { toast } from "@/Components/ui/use-toast";
 import { UserAuthvalidation } from "@/lib/validations/UserAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
+import Link from "next/link";
+import { redirect, useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -21,6 +25,7 @@ const defaultFormValues = {
   email: "",
   password: "",
 };
+
 const AuthForm = () => {
   //form validation
   const form = useForm<z.infer<typeof UserAuthvalidation>>({
@@ -30,8 +35,27 @@ const AuthForm = () => {
 
   const onSubmit = async (values: z.infer<typeof UserAuthvalidation>) => {
     try {
-      const x = await login(values);
-      console.log(x);
+      const resData = await signIn("credentials", {
+        email: values.email,
+        password: values.password,
+        redirect: false,
+      });
+      if (resData?.error === "401") {
+        toast({
+          variant: "destructive",
+          title: "Invalid credentials",
+          description: "Please signUp through credentials!!!",
+          action: (
+            <Link href="/">
+              <ToastAction altText="Try again">Try again</ToastAction>
+            </Link>
+          ),
+        });
+      } else if (resData?.error === "400" || resData?.error === "404") {
+        useRouter().replace("/");
+      } else {
+        useRouter().push("/profile");
+      }
     } catch (error) {
       console.log("login failed", error);
     }

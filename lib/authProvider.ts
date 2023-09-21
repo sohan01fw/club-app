@@ -101,5 +101,14 @@ export const authOptions: NextAuthOptions = {
 
       return { ...session, id: userDta._id.toString() };
     },
+    /*  async redirect({ url, baseUrl }) {
+      if (url.startsWith("/profile")) {
+        if (url === "/profile") {
+          return `${baseUrl}${url}`;
+        }
+      }
+
+      return baseUrl;
+    }, */
   },
 };
