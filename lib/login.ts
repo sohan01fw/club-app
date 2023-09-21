@@ -1,5 +1,5 @@
-import { getSession, signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import { redirect, useRouter } from "next/navigation";
 
 //for to login the user with email and password
 interface userValue {
@@ -12,17 +12,17 @@ export const login = async (values: userValue) => {
     password: values.password,
     redirect: false,
   });
-
+  /* if (res?.error === "404") {
+    redirect("/");
+  } */
   // Check if there's an error in the response
-  if (res?.error) {
+  if (res?.error === "401") {
     // Handle the error here (e.g., display an error message)
-    console.error("Login error:", res.error);
 
-    return res;
+    return { error: "wrong credentials", status: 401 };
   } else {
     // No error, user successfully logged in, you can now redirect
     // Redirect to a specific page, e.g., profile page
     useRouter().push("/profile");
   }
-  return res;
 };

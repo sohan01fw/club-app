@@ -7,7 +7,6 @@ import AuthUser from "./Models/authuser.model";
 import { StoreUser, updateStoreUser } from "./actions/AuthUser.action";
 import { STATUS_CODES } from "http";
 import { redirect } from "next/navigation";
-import { NextAuthError } from "./error";
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
 
@@ -47,13 +46,13 @@ export const authOptions: NextAuthOptions = {
 
           if (!user) {
             // If the user doesn't exist, throw an error and redirect to the sign-up page
-            throw new Error("User does not exist. Please sign up.");
+            throw new Error("404");
           } else if (user?.password === "") {
             // If the user exists but has an empty password, throw an error and redirect to the sign-up page
-            throw new Error("Password not set. Please sign up.");
+            throw new Error("400");
           } else if (user?.password !== password) {
             // If the provided password doesn't match the stored password, throw an error
-            throw new NextAuthError("Invalid password.", 401);
+            throw new Error("401");
           }
 
           return {
