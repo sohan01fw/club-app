@@ -5,6 +5,9 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import AuthUser from "./Models/authuser.model";
 import { StoreUser, updateStoreUser } from "./actions/AuthUser.action";
+import { STATUS_CODES } from "http";
+import { redirect } from "next/navigation";
+import { NextAuthError } from "./error";
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
 
@@ -39,26 +42,18 @@ export const authOptions: NextAuthOptions = {
         const password = credentials?.password || "";
 
         try {
+          // Find the user in the database
           let user = await AuthUser.findOne({ email });
 
           if (!user) {
-            // If user doesn't exist, create and store the user
-            const userStoredData = await StoreUser({ email, password });
-
-            // Fetch the newly created user
-            user = await AuthUser.findOne({ email });
-          }
-
-          if (user?.password === "") {
-            // If user exists but has an empty password, update the password
-            await updateStoreUser({ email, password });
-
-            // Fetch the updated user
-            user = await AuthUser.findOne({ email });
-          }
-
-          if (user?.password !== password) {
-            user = { error: "Password didn't matched!!!" };
+            // If the user doesn't exist, throw an error and redirect to the sign-up page
+            throw new Error("User does not exist. Please sign up.");
+          } else if (user?.password === "") {
+            // If the user exists but has an empty password, throw an error and redirect to the sign-up page
+            throw new Error("Password not set. Please sign up.");
+          } else if (user?.password !== password) {
+            // If the provided password doesn't match the stored password, throw an error
+            throw new NextAuthError("Invalid password.", 401);
           }
 
           return {
@@ -66,7 +61,7 @@ export const authOptions: NextAuthOptions = {
             redirectUrl: "/profile",
           };
         } catch (error: any) {
-          throw new Error("error user not save to db", error);
+          throw error;
         }
         return null;
       },

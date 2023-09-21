@@ -17,6 +17,7 @@ export const login = async (values: userValue) => {
   if (res?.error) {
     // Handle the error here (e.g., display an error message)
     console.error("Login error:", res.error);
+
     return res;
   } else {
     // No error, user successfully logged in, you can now redirect
