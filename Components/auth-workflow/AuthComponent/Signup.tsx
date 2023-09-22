@@ -14,7 +14,9 @@ import { Input } from "@/Components/ui/input";
 import { ToastAction } from "@/Components/ui/toast";
 import { toast } from "@/Components/ui/use-toast";
 import { StoreUser } from "@/lib/actions/AuthUser.action";
-import { UserAuthvalidation } from "@/lib/zodValidation/UserAuth";
+import Forsignup from "@/lib/server/Forsignup";
+import {} from "@/lib/zodValidation/UserSignin";
+import { UserSignupvalidation } from "@/lib/zodValidation/UserSignup";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircle } from "lucide-react";
 import { getSession, signIn, useSession } from "next-auth/react";
@@ -37,19 +39,23 @@ const Signup = () => {
   console.log(session); */
 
   //form validation
-  const form = useForm<z.infer<typeof UserAuthvalidation>>({
-    resolver: zodResolver(UserAuthvalidation),
+  const form = useForm<z.infer<typeof UserSignupvalidation>>({
+    resolver: zodResolver(UserSignupvalidation),
     defaultValues: defaultFormValues,
   });
 
-  const onSubmit = async (values: z.infer<typeof UserAuthvalidation>) => {
+  const onSubmit = async (values: z.infer<typeof UserSignupvalidation>) => {
+    let email = values.email;
+    let password = values.password;
     if (values.password !== values.Cpassword) {
       setCheckpsw(true);
     } else {
-      const storeNewUser = await StoreUser({
-        email: values.email,
-        password: values.password,
-      });
+      setCheckpsw(false);
+      const resValue = await Forsignup(email, password);
+      console.log(resValue);
+      if (resValue) {
+        router.push("/signin");
+      }
     }
   };
 

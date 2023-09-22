@@ -12,7 +12,7 @@ import {
 import { Input } from "@/Components/ui/input";
 import { ToastAction } from "@/Components/ui/toast";
 import { toast } from "@/Components/ui/use-toast";
-import { UserAuthvalidation } from "@/lib/zodValidation/UserAuth";
+import { UserSigninvalidation } from "@/lib/zodValidation/UserSignin";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getSession, signIn, useSession } from "next-auth/react";
 import Link from "next/link";
@@ -34,12 +34,12 @@ const Signin = () => {
   console.log(session); */
 
   //form validation
-  const form = useForm<z.infer<typeof UserAuthvalidation>>({
-    resolver: zodResolver(UserAuthvalidation),
+  const form = useForm<z.infer<typeof UserSigninvalidation>>({
+    resolver: zodResolver(UserSigninvalidation),
     defaultValues: defaultFormValues,
   });
 
-  const onSubmit = async (values: z.infer<typeof UserAuthvalidation>) => {
+  const onSubmit = async (values: z.infer<typeof UserSigninvalidation>) => {
     setLoading(true);
     try {
       const resData = await signIn("credentials", {
