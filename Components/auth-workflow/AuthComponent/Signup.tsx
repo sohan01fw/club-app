@@ -1,5 +1,6 @@
 "use client";
 import { ButtonLoading } from "@/Components/Loading_Assests/ButtonLoading";
+import { Alert, AlertDescription, AlertTitle } from "@/Components/ui/alert";
 import { Button } from "@/Components/ui/button";
 import {
   Form,
@@ -12,8 +13,10 @@ import {
 import { Input } from "@/Components/ui/input";
 import { ToastAction } from "@/Components/ui/toast";
 import { toast } from "@/Components/ui/use-toast";
-import { UserAuthvalidation } from "@/lib/validations/UserAuth";
+import { StoreUser } from "@/lib/actions/AuthUser.action";
+import { UserAuthvalidation } from "@/lib/zodValidation/UserAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AlertCircle } from "lucide-react";
 import { getSession, signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { redirect, useRouter } from "next/navigation";
@@ -28,7 +31,7 @@ const defaultFormValues = {
 };
 
 const Signup = () => {
-  const [loading, setLoading] = useState(false);
+  const [checkpsw, setCheckpsw] = useState(false);
   const router = useRouter();
   /* const { data: session, status } = useSession();
   console.log(session); */
@@ -40,39 +43,31 @@ const Signup = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof UserAuthvalidation>) => {
-    setLoading(true);
-    try {
-      const resData = await signIn("credentials", {
+    if (values.password !== values.Cpassword) {
+      setCheckpsw(true);
+    } else {
+      const storeNewUser = await StoreUser({
         email: values.email,
         password: values.password,
-        redirect: false,
       });
-
-      if (resData?.error === "401") {
-        toast({
-          variant: "destructive",
-          title: "Invalid credentials",
-          description: "Please signUp through credentials!!!",
-        });
-      } else if (resData?.error === "400") {
-        toast({
-          variant: "destructive",
-          title: " invalid request message",
-          description: "Please signUp through credentials!!!",
-        });
-      } else {
-        router.push("/profile");
-      }
-    } catch (error) {
-      console.log("login failed", error);
-    } finally {
-      setLoading(false);
     }
   };
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className=" ml-3 mr-4 ">
+        {checkpsw ? (
+          <Alert variant="destructive">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>
+              Your password doesn't matched!!!
+            </AlertDescription>
+          </Alert>
+        ) : (
+          ""
+        )}
+
         <FormField
           control={form.control}
           name="email"
@@ -110,17 +105,33 @@ const Signup = () => {
             </FormItem>
           )}
         />
-        {loading ? (
-          <ButtonLoading />
-        ) : (
-          <Button
-            variant="link"
-            type="submit"
-            className="w-full mr-4 mt-8 mb-5  text-[10px] transition-transform transform active:scale-95 bg-[#5271FF]"
-          >
-            <p className="text-white">Submit</p>
-          </Button>
-        )}
+
+        <FormField
+          control={form.control}
+          name="Cpassword"
+          render={({ field }) => (
+            <FormItem className="mt-3">
+              <FormLabel className="">Confirm Password</FormLabel>
+              <FormControl className="">
+                <Input
+                  type="password"
+                  className="shadow-md"
+                  placeholder="confirm your password...."
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage className="font-medium text-[11px]" />
+            </FormItem>
+          )}
+        />
+
+        <Button
+          variant="link"
+          type="submit"
+          className="w-full mr-4 mt-8 mb-5  text-[10px] transition-transform transform active:scale-95 bg-[#5271FF]"
+        >
+          <p className="text-white">Submit</p>
+        </Button>
       </form>
     </Form>
   );

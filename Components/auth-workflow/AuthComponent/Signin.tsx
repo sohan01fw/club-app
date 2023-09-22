@@ -12,7 +12,7 @@ import {
 import { Input } from "@/Components/ui/input";
 import { ToastAction } from "@/Components/ui/toast";
 import { toast } from "@/Components/ui/use-toast";
-import { UserAuthvalidation } from "@/lib/validations/UserAuth";
+import { UserAuthvalidation } from "@/lib/zodValidation/UserAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getSession, signIn, useSession } from "next-auth/react";
 import Link from "next/link";

@@ -14,7 +14,7 @@ import React, { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { UserValidaton } from "@/lib/validations/UserProfile";
+import { UserValidaton } from "@/lib/zodValidation/UserProfile";
 
 import Image from "next/image";
 import { Textarea } from "@/Components/ui/textarea";
