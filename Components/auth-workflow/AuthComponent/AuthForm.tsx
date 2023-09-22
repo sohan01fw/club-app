@@ -13,7 +13,7 @@ import { ToastAction } from "@/Components/ui/toast";
 import { toast } from "@/Components/ui/use-toast";
 import { UserAuthvalidation } from "@/lib/validations/UserAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signIn } from "next-auth/react";
+import { getSession, signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { redirect, useRouter } from "next/navigation";
 import React from "react";
@@ -27,6 +27,10 @@ const defaultFormValues = {
 };
 
 const AuthForm = () => {
+  const router = useRouter();
+  /* const { data: session, status } = useSession();
+  console.log(session); */
+
   //form validation
   const form = useForm<z.infer<typeof UserAuthvalidation>>({
     resolver: zodResolver(UserAuthvalidation),
@@ -40,21 +44,21 @@ const AuthForm = () => {
         password: values.password,
         redirect: false,
       });
+
+      /* const session = await getSession();
+      console.log(session); */
+
+      console.log(resData);
+
       if (resData?.error === "401") {
         toast({
-          variant: "destructive",
           title: "Invalid credentials",
           description: "Please signUp through credentials!!!",
-          action: (
-            <Link href="/">
-              <ToastAction altText="Try again">Try again</ToastAction>
-            </Link>
-          ),
         });
       } else if (resData?.error === "400" || resData?.error === "404") {
-        useRouter().replace("/");
+        router.push("/");
       } else {
-        useRouter().push("/profile");
+        router.push("/profile");
       }
     } catch (error) {
       console.log("login failed", error);

@@ -5,29 +5,30 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import AuthUser from "./Models/authuser.model";
 import { StoreUser, updateStoreUser } from "./actions/AuthUser.action";
-import { STATUS_CODES } from "http";
 import { redirect } from "next/navigation";
+
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
-
   providers: [
-    //Github provider
+    // Github provider
     GithubProvider({
       clientId: process.env.GITHUB_ID as string,
       clientSecret: process.env.GITHUB_SECRET as string,
     }),
 
-    //Facebook provider
+    // Facebook provider
     FacebookProvider({
       clientId: process.env.FACEBOOK_CLIENT_ID as string,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
     }),
 
-    //Google provider
+    // Google provider
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
+
+    // Credentials provider
     CredentialsProvider({
       // The name to display on the sign in form (e.g. 'Sign in with...')
       name: "Credentials",
@@ -36,6 +37,7 @@ export const authOptions: NextAuthOptions = {
         email: { label: "Username", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password" },
       },
+
       async authorize(credentials, req) {
         const email = credentials?.email || "";
         const password = credentials?.password || "";
@@ -44,48 +46,39 @@ export const authOptions: NextAuthOptions = {
           // Find the user in the database
           let user = await AuthUser.findOne({ email });
 
-          if (!user) {
-            // If the user doesn't exist, throw an error and redirect to the sign-up page
-            throw new Error("404");
-          } else if (user?.password === "") {
-            // If the user exists but has an empty password, throw an error and redirect to the sign-up page
-            throw new Error("400");
-          } else if (user?.password !== password) {
-            // If the provided password doesn't match the stored password, throw an error
+          if (!user || user.password !== credentials?.password) {
             throw new Error("401");
           }
 
-          return {
-            ...user.toObject(), // Convert the Mongoose document to a plain object
-            redirectUrl: "/profile",
-          };
+          return { ...user.toObject(), redirectUrl: "/profile" };
         } catch (error: any) {
           throw error;
         }
+
         return null;
       },
     }),
-    // ...add more providers here
   ],
 
   // this is for redirection to sigin page using next-auth
   pages: {
     signIn: "/signin",
   },
+
   secret: process.env.NEXTAUTH_SECRET,
+
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
       if (profile?.email) {
         const userEmailFormGoogle = profile.email;
-        const userData = await AuthUser.findOne({
-          email: userEmailFormGoogle,
-        });
+        const userData = await AuthUser.findOne({ email: userEmailFormGoogle });
 
         // Save the user's email to your database
         if (!userData) {
           await StoreUser({ email: userEmailFormGoogle, password: "" });
         }
       }
+
       return true;
     },
 
@@ -95,20 +88,9 @@ export const authOptions: NextAuthOptions = {
       session.user.id = token.id */
 
       const userEmail = session.user?.email;
-      const userDta = await AuthUser.findOne({
-        email: userEmail,
-      });
+      const userDta = await AuthUser.findOne({ email: userEmail });
 
       return { ...session, id: userDta._id.toString() };
     },
-    /*  async redirect({ url, baseUrl }) {
-      if (url.startsWith("/profile")) {
-        if (url === "/profile") {
-          return `${baseUrl}${url}`;
-        }
-      }
-
-      return baseUrl;
-    }, */
   },
 };
