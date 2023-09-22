@@ -1,54 +1,136 @@
 "use client";
-import { signIn } from "next-auth/react";
-import React from "react";
+import { ButtonLoading } from "@/Components/Loading_Assests/ButtonLoading";
+import { Button } from "@/Components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/Components/ui/form";
+import { Input } from "@/Components/ui/input";
+import { ToastAction } from "@/Components/ui/toast";
+import { toast } from "@/Components/ui/use-toast";
+import { UserAuthvalidation } from "@/lib/validations/UserAuth";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { getSession, signIn, useSession } from "next-auth/react";
+import Link from "next/link";
+import { redirect, useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+
+//for default form values
+const defaultFormValues = {
+  email: "",
+  password: "",
+};
 
 const Signin = () => {
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  /* const { data: session, status } = useSession();
+  console.log(session); */
+
+  //form validation
+  const form = useForm<z.infer<typeof UserAuthvalidation>>({
+    resolver: zodResolver(UserAuthvalidation),
+    defaultValues: defaultFormValues,
+  });
+
+  const onSubmit = async (values: z.infer<typeof UserAuthvalidation>) => {
+    setLoading(true);
+    try {
+      const resData = await signIn("credentials", {
+        email: values.email,
+        password: values.password,
+        redirect: false,
+      });
+
+      if (resData?.error === "401") {
+        toast({
+          variant: "destructive",
+          title: "Invalid credentials",
+          description: "Please signUp through credentials!!!",
+        });
+      } else if (resData?.error === "400") {
+        toast({
+          variant: "destructive",
+          title: " invalid request message",
+          description: "Please signUp through credentials!!!",
+        });
+      } else {
+        router.push("/profile");
+      }
+    } catch (error) {
+      console.log("login failed", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className="  ">
-      <div className="  flex w-48 mt-[-30px] transition-transform transform active:scale-95 ">
-        <img src="/logo/club_logo.png" className="h-40 ml-[-45px]" alt="logo" />
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className=" ml-3 mr-4 ">
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="JohnDoe@gmail.com"
+                  className="shadow-md"
+                  type="email"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage className="font-medium text-[11px]" />
+            </FormItem>
+          )}
+        />
 
-        <h1 className="text-5xl font-extrabold ml-[-45px] mt-16">lub</h1>
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem className="mt-3">
+              <FormLabel className="">Password</FormLabel>
+              <FormControl className="">
+                <Input
+                  type="password"
+                  className="shadow-md"
+                  placeholder="password...."
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage className="font-medium text-[11px]" />
+            </FormItem>
+          )}
+        />
+        {loading ? (
+          <ButtonLoading />
+        ) : (
+          <Button
+            variant="link"
+            type="submit"
+            className="w-full mr-4 mt-8 mb-5  text-[10px] transition-transform transform active:scale-95 bg-[#5271FF]"
+          >
+            <p className="text-white">Submit</p>
+          </Button>
+        )}
+      </form>
+      <div className="unauth-user m-2">
+        <h3>
+          not have Account?{" "}
+          <Link href="/signup" className="hover:outline-dashed text-[#5271FF]">
+            Signup
+          </Link>
+        </h3>
       </div>
-
-      <div className="subTitle m-4 mt-[-40px] ml-4">
-        <h3 className="text-black font-semibold text-xl mb-[-4px]">Sign In</h3>
-        <span className="text-gray-900  text-sm">to continue Club</span>
-      </div>
-
-      <div className="providers flex justify-around  w-[10rem] ml-3 mt-[-5px] mb-5 ">
-        <div
-          className="google cursor shadow-md  p-2 point mr-2  transition-transform transform active:scale-95"
-          onClick={() => {
-            signIn("google", {
-              callbackUrl: "http://localhost:3000/profile",
-            });
-          }}
-        >
-          <img src="/logo/google.png" alt="logo" className="google_logo" />
-        </div>
-        <div
-          className="facebook cursor   p-2 point  shadow-md transition-transform transform active:scale-95 mr-2 "
-          onClick={() => {
-            signIn("facebook", {
-              callbackUrl: "http://localhost:3000/profile",
-            });
-          }}
-        >
-          <img src="/logo/facebook.png" alt="facebook_logo" />
-        </div>
-        <div
-          className="github cursor  p-2 point mr-2 shadow-md transition-transform transform active:scale-95"
-          onClick={() => {
-            signIn("github", {
-              callbackUrl: "http://localhost:3000/profile",
-            });
-          }}
-        >
-          <img src="/logo/githubpic.png" alt="github_logo" />
-        </div>
-      </div>
-    </div>
+    </Form>
   );
 };
 

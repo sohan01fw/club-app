@@ -48,6 +48,8 @@ export const authOptions: NextAuthOptions = {
 
           if (!user || user.password !== credentials?.password) {
             throw new Error("401");
+          } else if (user?.password === "") {
+            throw new Error("400");
           }
 
           return { ...user.toObject(), redirectUrl: "/profile" };

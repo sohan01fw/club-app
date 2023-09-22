@@ -1,4 +1,5 @@
 "use client";
+import { ButtonLoading } from "@/Components/Loading_Assests/ButtonLoading";
 import { Button } from "@/Components/ui/button";
 import {
   Form,
@@ -16,7 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { getSession, signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { redirect, useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -26,7 +27,8 @@ const defaultFormValues = {
   password: "",
 };
 
-const AuthForm = () => {
+const Signup = () => {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   /* const { data: session, status } = useSession();
   console.log(session); */
@@ -38,6 +40,7 @@ const AuthForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof UserAuthvalidation>) => {
+    setLoading(true);
     try {
       const resData = await signIn("credentials", {
         email: values.email,
@@ -45,23 +48,25 @@ const AuthForm = () => {
         redirect: false,
       });
 
-      /* const session = await getSession();
-      console.log(session); */
-
-      console.log(resData);
-
       if (resData?.error === "401") {
         toast({
+          variant: "destructive",
           title: "Invalid credentials",
           description: "Please signUp through credentials!!!",
         });
-      } else if (resData?.error === "400" || resData?.error === "404") {
-        router.push("/");
+      } else if (resData?.error === "400") {
+        toast({
+          variant: "destructive",
+          title: " invalid request message",
+          description: "Please signUp through credentials!!!",
+        });
       } else {
         router.push("/profile");
       }
     } catch (error) {
       console.log("login failed", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -105,16 +110,20 @@ const AuthForm = () => {
             </FormItem>
           )}
         />
-        <Button
-          variant="link"
-          type="submit"
-          className="w-full mr-4 mt-8 mb-5 transition-transform transform active:scale-95 bg-[#5271FF]"
-        >
-          Submit
-        </Button>
+        {loading ? (
+          <ButtonLoading />
+        ) : (
+          <Button
+            variant="link"
+            type="submit"
+            className="w-full mr-4 mt-8 mb-5  text-[10px] transition-transform transform active:scale-95 bg-[#5271FF]"
+          >
+            <p className="text-white">Submit</p>
+          </Button>
+        )}
       </form>
     </Form>
   );
 };
 
-export default AuthForm;
+export default Signup;
