@@ -10,6 +10,7 @@ import Bottombar from "@/Components/Home-page/Bottombar";
 import { Suspense } from "react";
 import Loading from "./loading";
 import { ConnectToDB } from "@/lib/mongoose";
+import { ThemeProvider } from "@/Components/Theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,14 +29,17 @@ export default async function RootLayout({
     <html lang="en">
       <AuthContext>
         <body className={`${inter.className} flex flex-col`}>
-          <Logo />
-          <main className="flex justify-between w-full ">
-            <LeftNav />
-            <Suspense fallback={<Loading />}>{children}</Suspense>
+          <ThemeProvider>
+            <Logo />
+            <main className="flex justify-between w-full ">
+              <LeftNav />
 
-            <SuggestBar />
-          </main>
-          <Bottombar />
+              <Suspense fallback={<Loading />}>{children}</Suspense>
+
+              <SuggestBar />
+            </main>
+            <Bottombar />
+          </ThemeProvider>
         </body>
       </AuthContext>
     </html>

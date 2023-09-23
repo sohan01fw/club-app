@@ -2,6 +2,7 @@
 import { ButtonLoading } from "@/Components/Loading_Assests/ButtonLoading";
 import { Alert, AlertDescription, AlertTitle } from "@/Components/ui/alert";
 import { Button } from "@/Components/ui/button";
+import { Checkbox } from "@/Components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -11,6 +12,7 @@ import {
   FormMessage,
 } from "@/Components/ui/form";
 import { Input } from "@/Components/ui/input";
+import { Label } from "@/Components/ui/label";
 import { ToastAction } from "@/Components/ui/toast";
 import { toast } from "@/Components/ui/use-toast";
 import { StoreUser } from "@/lib/actions/AuthUser.action";
@@ -130,11 +132,16 @@ const Signup = () => {
             </FormItem>
           )}
         />
-
+        <div className="mt-10 ">
+          <div className="flex items-center space-x-2 ">
+            <Checkbox id="terms" className="mr-2" />
+            <Label htmlFor="terms">Accept terms and conditions</Label>
+          </div>
+        </div>
         <Button
           variant="link"
           type="submit"
-          className="w-full mr-4 mt-8 mb-5  text-[10px] transition-transform transform active:scale-95 bg-[#5271FF]"
+          className="w-full mr-4 mt-8 mb-5  transition-transform transform active:scale-95 bg-[#5271FF]"
         >
           <p className="text-white">Submit</p>
         </Button>

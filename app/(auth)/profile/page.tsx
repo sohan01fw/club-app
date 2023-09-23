@@ -17,7 +17,7 @@ const page = async () => {
 
     const getSessionData = JSON.stringify(session, null, 2);
     const Data: userdata = JSON.parse(getSessionData);
-    console.log("from userprfoile userdata", Data.id);
+
     const userData = {
       _id: Data?.id,
       email: Data?.user?.email,

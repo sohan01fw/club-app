@@ -6,7 +6,6 @@ const UserProfileSchema = new Schema({
   _id: {
     type: String,
     required: true,
-    unique: true,
   },
   profile_pic: String,
   username: {

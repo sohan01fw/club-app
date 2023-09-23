@@ -5,6 +5,7 @@ import { getSession } from "next-auth/react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authProvider";
 import { getUserProfile } from "@/lib/DataRetriver/getUserProfile";
+import { ModeToggle } from "../Togglemode";
 
 type userprofiledata = {
   username: string;
@@ -14,7 +15,7 @@ const Logo = async () => {
   const getUser = await getServerSession(authOptions);
   const getUserObj = JSON.stringify(getUser);
   const parseGetUser = JSON.parse(getUserObj);
-  const id = parseGetUser?.user_Id;
+  const id = parseGetUser?.id;
   //getting user profile data from server
   const profileData: userprofiledata = await getUserProfile(id);
 
@@ -33,6 +34,7 @@ const Logo = async () => {
           lub
         </h1>
       </div>
+      {/* <ModeToggle /> */}
       {/* not real is from donw.................... */}
       <div className="dropdown">
         <Dropdown name={name} image={img} />
