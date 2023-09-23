@@ -3,9 +3,8 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const UserProfileSchema = new Schema({
-  userId: {
+  user_Id: {
     type: String,
-
     required: true,
   },
   profile_pic: String,

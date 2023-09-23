@@ -17,8 +17,8 @@ const Forsignup = async (email: string, password: string) => {
     }
     if (checkUser?.password === "") {
       const updateUserData = await updateStoreUser({ email, password });
-
-      return updateUserData.toObject();
+      const sendUpdatedUser = JSON.parse(JSON.stringify(updateUserData));
+      return sendUpdatedUser;
     }
   } catch (error: any) {
     throw new Error(error);

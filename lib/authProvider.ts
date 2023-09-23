@@ -46,7 +46,7 @@ export const authOptions: NextAuthOptions = {
           // Find the user in the database
           let user = await AuthUser.findOne({ email });
 
-          if (!user || user.password !== credentials?.password) {
+          if (!user || user?.password !== password) {
             throw new Error("401");
           } else if (user?.password === "") {
             throw new Error("400");

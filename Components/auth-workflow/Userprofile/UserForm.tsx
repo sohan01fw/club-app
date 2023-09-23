@@ -26,9 +26,10 @@ import { usePathname, useRouter } from "next/navigation";
 import { UserProfile } from "@/lib/actions/UserProfile.action";
 
 type props = {
-  user: { userId: string; email: string; name: string; image: string };
+  user: { user_Id: string; email: string; name: string; image: string };
 };
 const UserForm = ({ user }: props) => {
+  console.log("from profile userId", user.user_Id);
   const [files, setFiles] = useState<File[]>([]);
   const pathname = usePathname();
   const router = useRouter();
@@ -80,7 +81,7 @@ const UserForm = ({ user }: props) => {
     //inserting or updating user profile in server
 
     await UserProfile({
-      userId: user.userId,
+      user_Id: user.user_Id,
       username: values.username,
       profile_pic: values.profile_pic,
       bio: values.bio,
