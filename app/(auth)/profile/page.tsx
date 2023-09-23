@@ -4,7 +4,7 @@ import { getServerSession } from "next-auth";
 import React from "react";
 
 type userdata = {
-  user_Id: string;
+  id: string;
   user: { email: string; name: string; image: string };
 };
 const page = async () => {
@@ -17,9 +17,9 @@ const page = async () => {
 
     const getSessionData = JSON.stringify(session, null, 2);
     const Data: userdata = JSON.parse(getSessionData);
-    console.log("from userprfoile userdata", Data.user_Id);
+    console.log("from userprfoile userdata", Data.id);
     const userData = {
-      user_Id: Data?.user_Id,
+      _id: Data?.id,
       email: Data?.user?.email,
       name: Data?.user?.name,
       image: Data?.user?.image,

@@ -17,11 +17,7 @@ type googleAuthuser = {
 // to store the user in database
 export async function StoreUser({ email, password }: googleAuthuser) {
   try {
-    const uuid = uuidv4();
-    const user_Id = uuid.substring(0, 8);
-    console.log(user_Id);
     const saveUser = new AuthUser({
-      user_Id,
       email,
       password,
     });

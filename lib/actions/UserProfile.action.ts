@@ -5,7 +5,7 @@ import { ConnectToDB } from "../mongoose";
 
 // Type def for user profile
 type userprofile = {
-  user_Id: string;
+  _id: string;
   profile_pic: string;
   username: string;
   bio: string;
@@ -14,7 +14,7 @@ type userprofile = {
 
 // Insert user profile and update if needed
 export async function UserProfile({
-  user_Id,
+  _id,
   username,
   profile_pic,
   bio,
@@ -22,7 +22,7 @@ export async function UserProfile({
 }: userprofile): Promise<void> {
   try {
     const updatedProfile = await userProfile.findByIdAndUpdate(
-      user_Id, // Pass userId as a string
+      _id, // Pass userId as a string
       { username, profile_pic, bio, onboarded: true }, // Update the correct fields, e.g., 'username'
       { new: true, upsert: true }
     );
