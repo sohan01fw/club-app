@@ -18,7 +18,7 @@ import { PostValidaton } from "@/lib/zodValidation/UserPost";
 import { UserPost } from "@/lib/actions/UserPost.action";
 import { usePathname, useRouter } from "next/navigation";
 
-const Post = () => {
+const Post = ({ userid }: { userid: string }) => {
   const pathname = usePathname();
   const router = useRouter();
   const form = useForm<z.infer<typeof PostValidaton>>({
@@ -31,7 +31,7 @@ const Post = () => {
     try {
       const resPost = await UserPost({
         text: values.text,
-        author: "helloid",
+        author: userid,
         communityId: null,
         path: pathname,
       });

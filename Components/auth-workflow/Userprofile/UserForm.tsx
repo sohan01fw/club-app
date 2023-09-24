@@ -29,7 +29,6 @@ type props = {
   user: { _id: string; email: string; name: string; image: string };
 };
 const UserForm = ({ user }: props) => {
-  console.log("from profile userId", user._id);
   const [files, setFiles] = useState<File[]>([]);
   const pathname = usePathname();
   const router = useRouter();

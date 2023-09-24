@@ -1,7 +1,6 @@
 "use server";
 import { revalidatePath } from "next/cache";
 import userProfile from "../Models/userprofile.model";
-import { ConnectToDB } from "../mongoose";
 
 // Type def for user profile
 type userprofile = {
