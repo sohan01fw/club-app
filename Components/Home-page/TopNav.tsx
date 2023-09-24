@@ -16,6 +16,7 @@ const Logo = async () => {
   const getUserObj = JSON.stringify(getUser);
   const parseGetUser = JSON.parse(getUserObj);
   const id = parseGetUser?.id;
+
   //getting user profile data from server
   const profileData: userprofiledata = await getUserProfile(id);
 

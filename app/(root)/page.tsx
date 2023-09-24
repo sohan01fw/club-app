@@ -3,8 +3,8 @@ import ClubPost from "@/Components/Home-page/ClubPost";
 import { useSession } from "next-auth/react";
 
 export default function Home() {
-  const { data: session } = useSession();
-  console.log(session);
+  /*   const { data: session } = useSession();
+  console.log(session); */
   return (
     <main className=" flex flex-col mt-20  sm:ml-28 md:ml-28 md:mr-5 lg:ml-40 xl:ml-40 2xl:ml-10   ">
       <div className="pagetitle  bg-white mb-8 ">

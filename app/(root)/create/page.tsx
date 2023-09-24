@@ -1,59 +1,21 @@
-import { Button } from "@/Components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/Components/ui/dialog";
-import { Input } from "@/Components/ui/input";
-import { Label } from "@/Components/ui/label";
+import Post from "@/Components/Home-page/CreatePost/Post";
+import { getUserProfile } from "@/lib/DataRetriver/getUserProfile";
+import { getUserData } from "@/lib/actions/UserProfile.action";
+import getSessionUser from "@/lib/getSessionUser";
+import { redirect } from "next/navigation";
+import React from "react";
 
-export default function page() {
+const page = async () => {
+  const getUser = await getSessionUser();
+  const parseUser = JSON.parse(getUser);
+  const getUserDatas = await getUserData(parseUser.id);
+  if (!getUserDatas?.onboarded) return redirect("/profile");
   return (
-    <div className="flex flex-col mt-40  sm:ml-28 md:ml-28 md:mr-5 lg:ml-40 xl:ml-40 2xl:ml-10 ">
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button variant="outline" className="text-white">
-            Create a post
-          </Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>Edit profile</DialogTitle>
-            <DialogDescription>
-              Make changes to your profile here. Click save when you're done.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right">
-                Name
-              </Label>
-              <Input
-                id="name"
-                defaultValue="Pedro Duarte"
-                className="col-span-3"
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="username" className="text-right">
-                Username
-              </Label>
-              <Input
-                id="username"
-                defaultValue="@peduarte"
-                className="col-span-3"
-              />
-            </div>
-          </div>
-          <DialogFooter>
-            <Button type="submit">Save changes</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+    <div className="flex flex-col mt-20  sm:ml-28 md:ml-28 md:mr-5 lg:ml-40 xl:ml-40 2xl:ml-10 ">
+      <div>Create your Post</div>
+      <Post />
     </div>
   );
-}
+};
+
+export default page;

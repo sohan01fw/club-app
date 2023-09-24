@@ -36,3 +36,9 @@ export async function UserProfile({
     throw new Error("Failed to create/update user profile: ", error.message);
   }
 }
+
+export async function getUserData(id: string) {
+  const userData = await userProfile.findOne({ id });
+
+  return userData;
+}
