@@ -2,37 +2,40 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
-const UserProfileSchema = new Schema({
-  _id: {
-    type: String,
-    required: true,
-  },
-  profile_pic: String,
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  bio: {
-    type: String,
-  },
-  threads: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Thread",
+const UserProfileSchema = new Schema(
+  {
+    _id: {
+      type: String,
+      required: true,
     },
-  ],
-  communities: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Communities",
+    profile_pic: String,
+    username: {
+      type: String,
+      required: true,
+      unique: true,
     },
-  ],
-  onboarded: {
-    type: Boolean,
-    default: false,
+    bio: {
+      type: String,
+    },
+    posts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "UserPosts",
+      },
+    ],
+    communities: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Communities",
+      },
+    ],
+    onboarded: {
+      type: Boolean,
+      default: false,
+    },
   },
-});
+  { timestamps: true }
+);
 
 const userProfile =
   mongoose.models.UserProfiles ||
