@@ -1,5 +1,13 @@
 import Image from "next/image";
 import React from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import {
+  BeakerIcon,
+  ForwardIcon,
+  HeartIcon,
+  MessageSquare,
+  Repeat2,
+} from "lucide-react";
 
 type dataProps = {
   id: string;
@@ -34,17 +42,44 @@ const ClubPost = ({
 }: dataProps) => {
   return (
     <article className="m-10 rounded-lg shadow-md">
-      <div className="userProfile">
-        <div className="image border m-10">
-          <Image
-            src={author.profile_pic}
-            alt="profile_pic"
-            width={42}
-            height={42}
-          />
+      <div className="userProfile flex flex-row w-40 ">
+        <div className="profile flex  transition-transform transform active:scale-95 w-14 justify-center mb-2">
+          <Avatar className="shadow-md mt-3 mr-2  ">
+            <Image
+              src={author.profile_pic}
+              alt="img"
+              width={38}
+              height={20}
+              className="ml-[1px]"
+              priority
+            />
+          </Avatar>
+        </div>
+        <div className="username  pt-5">
+          <h4 className="scroll-m-20 text-md font-semibold tracking-tight">
+            {author.username}
+          </h4>
         </div>
       </div>
-      <h2>{content}</h2>
+      <div className="textPost ml-14 mr-10 p-1">
+        <p className="leading-7 [&:not(:first-child)]:mt-6 whitespace-nowrap ">
+          {content}
+        </p>
+      </div>
+      <div className="icons flex gap-2 ml-14 justify-between w-32 p-2">
+        <div className="heart ">
+          <HeartIcon className="h-[18px] w-[18px] " />
+        </div>
+        <div className="comment">
+          <MessageSquare className="h-[18px] w-[18px] " />
+        </div>
+        <div className="share">
+          <ForwardIcon className="h-[18px] w-[18px] " />
+        </div>
+        <div className="retweet">
+          <Repeat2 className="h-[18px] w-[18px] " />
+        </div>
+      </div>
     </article>
   );
 };
