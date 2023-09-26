@@ -28,13 +28,7 @@ const Sublnav = () => {
               href={data.route}
               className={` rounded-lg hover:clubcolorbg ${itemClassName}`}
             >
-              <Image
-                src={data.imgURL}
-                alt={data.lable}
-                width={30}
-                height={30}
-                className=""
-              />
+              <div className="icons">{data.icon}</div>
             </Link>
           );
         })}

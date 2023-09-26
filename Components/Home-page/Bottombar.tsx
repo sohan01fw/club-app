@@ -23,13 +23,7 @@ const Bottombar = () => {
                 isActive && "clubcolorbg rounded-md  p-[0.2rem] pl-3 pr-3"
               }`}
             >
-              <Image
-                src={data.imgURL}
-                alt={data.lable}
-                width={28}
-                height={28}
-                className=""
-              />
+              <div className="icons">{data.icon}</div>
               <p className="max-md:hidden">{data.lable}</p>
             </Link>
           );
