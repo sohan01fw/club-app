@@ -1,10 +1,11 @@
 "use client";
 // components/Dropdown.js
-import { useState } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { signOut, useSession } from "next-auth/react";
+import { useCallback, useState } from "react";
+import { Avatar } from "./ui/avatar";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 type UserProps = {
   name: string;
@@ -14,37 +15,33 @@ const Dropdown = ({ name, image }: UserProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const router = useRouter();
-  const toggleDropdown = () => {
+  const toggleDropdown = useCallback(() => {
     setIsOpen(!isOpen);
-  };
-
-  const handleSignOut = async () => {
+  }, [isOpen]);
+  const handleSignOut = useCallback(async () => {
     const signOutPromise = signOut();
 
     // Once signOut is complete, navigate to the signin page
     await signOutPromise;
     router.push("/signin");
-  };
+  }, [router]);
   return (
-    <div className="relative inline-block text-left">
+    <nav className="relative inline-block text-left">
       <button
         onClick={toggleDropdown}
         type="button"
+        name="dropdown-button"
         className=""
         id="options-menu"
         aria-haspopup="true"
         aria-expanded="true"
       >
         <div className="profile flex transition-transform transform active:scale-95">
-          <Avatar className="border mt-3 mr-2   ">
-            <AvatarImage src={`${image}`} alt="@shadcn" />
-            <AvatarFallback>Club</AvatarFallback>
+          <Avatar className=" shadow-md mt-3 mr-2   ">
+            <Image src={`${image}`} alt="img" width={42} height={42} />
           </Avatar>
           <div className="nameandbtn mt-5 mr-2 max-md:hidden ">
             <h3 className="font-semibold">{name}</h3>
-            {/* <Button variant="link" className=" clubcolorbg">
-            SignOut
-          </Button> */}
           </div>
         </div>
       </button>
@@ -72,11 +69,10 @@ const Dropdown = ({ name, image }: UserProps) => {
             >
               <button onClick={handleSignOut}>SignOut</button>
             </div>
-            {/* Add more options as needed */}
           </div>
         </div>
       )}
-    </div>
+    </nav>
   );
 };
 

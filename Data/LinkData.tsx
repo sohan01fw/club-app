@@ -1,32 +1,42 @@
+import {
+  Activity,
+  Group,
+  Home,
+  ImagePlus,
+  Search,
+  Settings,
+  Users,
+} from "lucide-react";
+
 export const LinkData = [
   {
-    imgURL: "/Icons/home.svg",
+    icon: <Home />,
     route: "/",
     lable: "Home",
   },
   {
-    imgURL: "/Icons/search.svg",
+    icon: <Search />,
     route: "/Search",
     lable: "Search",
   },
   {
-    imgURL: "/Icons/heart.svg",
+    icon: <Activity />,
     route: "/activity",
     lable: "Activity",
   },
 
   {
-    imgURL: "/Icons/create.svg",
+    icon: <ImagePlus />,
     route: "/create",
     lable: "Create",
   },
   {
-    imgURL: "/Icons/communities.svg",
+    icon: <Group />,
     route: "/communities",
     lable: "Communities",
   },
   {
-    imgURL: "/Icons/setting.svg",
+    icon: <Settings />,
     route: "/settings",
     lable: "Settings",
   },

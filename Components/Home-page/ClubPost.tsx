@@ -50,7 +50,7 @@ const ClubPost = ({
               alt="img"
               width={38}
               height={20}
-              className="ml-[1px]"
+              className="ml-[1px] object-contain"
               priority
             />
           </Avatar>

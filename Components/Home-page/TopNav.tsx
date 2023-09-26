@@ -1,11 +1,10 @@
 import React from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Dropdown from "../DropMenu";
-import { getSession } from "next-auth/react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authProvider";
 import { getUserProfile } from "@/lib/DataRetriver/getUserProfile";
-import { ModeToggle } from "../Togglemode";
+import Image from "next/image";
+import { redirect } from "next/navigation";
 
 type userprofiledata = {
   username: string;
@@ -18,6 +17,9 @@ const Logo = async () => {
   const id = parseGetUser?.id;
 
   //getting user profile data from server
+  if (!id) {
+    redirect("/profile");
+  }
   const profileData: userprofiledata = await getUserProfile(id);
 
   const name = profileData?.username;
@@ -25,23 +27,22 @@ const Logo = async () => {
 
   return (
     <nav className="flex fixed w-full bg-white h-[5rem] top-0 z-20 justify-between lg:h-[4rem] ">
-      <div className="  flex h-36 w-48  mt-[-30px]  transition-transform transform active:scale-95 lg:h-28 lg:w-36 lg:mt-[-25px] ">
-        <img
+      <div className="  flex h-36 w-48  mt-[-30px]  transition-transform transform active:scale-95 lg:h-28 lg:w-[8rem] lg:mt-[-25px] ">
+        <Image
           src="/logo/club_logo.png"
           className=" ml-[-30px] lg:ml-[-10px]"
+          width={140}
+          height={32}
           alt="logo"
         />
         <h1 className="text-5xl font-extrabold ml-[-40px] mt-[3.2rem] lg:ml-[-30px] lg:mt-[2.5rem] lg:text-4xl">
           lub
         </h1>
       </div>
-      {/* <ModeToggle /> */}
       {/* not real is from donw.................... */}
       <div className="dropdown">
-        <Dropdown name={name} image={img} />
+        {name && img && <Dropdown name={name} image={img} />}
       </div>
-
-      {/* real is from donw................... */}
     </nav>
   );
 };
