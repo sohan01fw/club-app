@@ -37,7 +37,7 @@ export async function UserPost({ text, author, communityId, path }: params) {
   }
 }
 
-export async function fetchPosts(pageNumber = 1, pageSize = 20) {
+export async function fetchPosts(pageNumber: number, pageSize: number) {
   const skipAmount = (pageNumber - 1) * pageSize;
   //fetching post that have no parents(this is used to get the top level post which doesn't have parent)
   const getPostsQuery = await userPosts
