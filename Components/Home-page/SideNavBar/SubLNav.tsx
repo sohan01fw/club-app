@@ -1,12 +1,10 @@
 "use client";
 import { LinkData } from "@/Data/LinkData";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 const Sublnav = () => {
-  const router = useRouter();
   const pathname = usePathname();
   return (
     <section>
