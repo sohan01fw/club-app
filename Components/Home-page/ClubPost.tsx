@@ -1,13 +1,7 @@
 import Image from "next/image";
 import React from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import {
-  BeakerIcon,
-  ForwardIcon,
-  HeartIcon,
-  MessageSquare,
-  Repeat2,
-} from "lucide-react";
+import { Avatar } from "../ui/avatar";
+import { ForwardIcon, HeartIcon, MessageSquare, Repeat2 } from "lucide-react";
 
 type dataProps = {
   id: string;
@@ -31,15 +25,7 @@ type dataProps = {
   }[];
   iscomment?: boolean;
 };
-const ClubPost = ({
-  id,
-  parentId,
-  author,
-  content,
-  community,
-  createdAt,
-  comments,
-}: dataProps) => {
+const ClubPost = React.memo(({ author, content }: dataProps) => {
   return (
     <article className="m-10 rounded-lg shadow-md">
       <div className="userProfile flex flex-row w-40 ">
@@ -68,20 +54,20 @@ const ClubPost = ({
       </div>
       <div className="icons flex gap-2 ml-14 justify-between w-32 p-2">
         <div className="heart ">
-          <HeartIcon className="h-[18px] w-[18px] " />
+          <HeartIcon size={18} />
         </div>
         <div className="comment">
-          <MessageSquare className="h-[18px] w-[18px] " />
+          <MessageSquare size={18} />
         </div>
         <div className="share">
-          <ForwardIcon className="h-[18px] w-[18px] " />
+          <ForwardIcon size={18} />
         </div>
         <div className="retweet">
-          <Repeat2 className="h-[18px] w-[18px] " />
+          <Repeat2 size={18} />
         </div>
       </div>
     </article>
   );
-};
+});
 
 export default ClubPost;

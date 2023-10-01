@@ -12,7 +12,6 @@ import {
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { UserValidaton } from "@/lib/zodValidation/UserProfile";
 import { Textarea } from "@/Components/ui/textarea";
 import { PostValidaton } from "@/lib/zodValidation/UserPost";
 import { UserPost } from "@/lib/actions/UserPost.action";
@@ -29,14 +28,14 @@ const Post = ({ userid }: { userid: string }) => {
   });
   const onSubmit = async (values: z.infer<typeof PostValidaton>) => {
     try {
-      const resPost = await UserPost({
+      await UserPost({
         text: values.text,
         author: userid,
         communityId: null,
         path: pathname,
       });
 
-      router.push("/");
+      router.replace("/");
     } catch (error) {
       console.error(error);
     }
@@ -67,7 +66,6 @@ const Post = ({ userid }: { userid: string }) => {
             </FormItem>
           )}
         />
-
         <Button
           variant="link"
           type="submit"

@@ -26,13 +26,14 @@ import { UserProfile } from "@/lib/actions/UserProfile.action";
 type props = {
   user: { _id: string; email: string; name: string; image: string };
 };
+const resolver = zodResolver(UserValidaton);
 const UserForm = ({ user }: props) => {
   const [files, setFiles] = useState<File[]>([]);
   const pathname = usePathname();
   const router = useRouter();
   const { startUpload } = useUploadThing("imageUploader");
   const form = useForm<z.infer<typeof UserValidaton>>({
-    resolver: zodResolver(UserValidaton),
+    resolver,
     defaultValues: {
       profile_pic: user.image || "",
       username: user.name || "",

@@ -1,8 +1,6 @@
 "use server";
 
 import AuthUser from "../Models/authuser.model";
-import { ConnectToDB } from "../mongoose";
-import { v4 as uuidv4 } from "uuid";
 
 //Type def for user authentication
 type Authuser = {
@@ -17,12 +15,14 @@ type googleAuthuser = {
 // to store the user in database
 export async function StoreUser({ email, password }: googleAuthuser) {
   try {
-    const saveUser = new AuthUser({
+    const existingUser = new AuthUser({
       email,
       password,
     });
-
-    const savedUser = await saveUser.save();
+    if (existingUser) {
+      throw new Error("User already exists");
+    }
+    const savedUser = await existingUser.save();
     return savedUser;
   } catch (error: any) {
     throw new Error("failed to authenticate user", error.message);
