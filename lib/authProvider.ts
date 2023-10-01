@@ -6,6 +6,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import AuthUser from "./Models/authuser.model";
 import { StoreUser, updateStoreUser } from "./actions/AuthUser.action";
 import { redirect } from "next/navigation";
+import { ConnectToDB } from "./mongoose";
 
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers

@@ -10,13 +10,12 @@ import {
   FormMessage,
 } from "@/Components/ui/form";
 import { Input } from "@/Components/ui/input";
-import { ToastAction } from "@/Components/ui/toast";
 import { toast } from "@/Components/ui/use-toast";
 import { UserSigninvalidation } from "@/lib/zodValidation/UserSignin";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { getSession, signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -30,7 +29,7 @@ const defaultFormValues = {
 const Signin = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  /* const { data: session, status } = useSession();
+  /*  const { data: session, status } = useSession();
   console.log(session); */
 
   //form validation

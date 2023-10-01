@@ -17,7 +17,7 @@ const ProviderSignin = () => {
       </div>
 
       <div className="providers flex justify-around  w-[10rem] ml-3 mt-[-5px] mb-5 ">
-        <div
+        <button
           className="google cursor shadow-md  p-2 point mr-2  transition-transform transform active:scale-95"
           onClick={() => {
             signIn("google", {
@@ -26,8 +26,8 @@ const ProviderSignin = () => {
           }}
         >
           <img src="/logo/google.png" alt="logo" className="google_logo" />
-        </div>
-        <div
+        </button>
+        <button
           className="facebook cursor   p-2 point  shadow-md transition-transform transform active:scale-95 mr-2 "
           onClick={() => {
             signIn("facebook", {
@@ -36,8 +36,8 @@ const ProviderSignin = () => {
           }}
         >
           <img src="/logo/facebook.png" alt="facebook_logo" />
-        </div>
-        <div
+        </button>
+        <button
           className="github cursor  p-2 point mr-2 shadow-md transition-transform transform active:scale-95"
           onClick={() => {
             signIn("github", {
@@ -46,7 +46,7 @@ const ProviderSignin = () => {
           }}
         >
           <img src="/logo/githubpic.png" alt="github_logo" />
-        </div>
+        </button>
       </div>
     </div>
   );

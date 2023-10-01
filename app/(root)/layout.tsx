@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import Logo from "@/Components/Home-page/TopNav";
 import SuggestBar from "@/Components/Home-page/SuggestBar";
 import NavigationBar from "@/Components/Home-page/NavigationBar";
+import { ConnectToDB } from "@/lib/mongoose";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +19,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  ConnectToDB();
   return (
     <html lang="en">
       <AuthContext>
