@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import userProfile from "../Models/userprofile.model";
 import { ConnectToDB } from "../mongoose";
 import userPosts from "../Models/userposts.model";
+import path from "path";
 
 type params = {
   text: string;
@@ -64,4 +65,42 @@ export async function fetchPosts(pageNumber: number, pageSize: number) {
   const isNext = totalPostCount > skipAmount + posts.length;
 
   return { posts, isNext };
+}
+
+export async function fetchPostById(id: string) {
+  try {
+    const getPostData = await userPosts
+      .findById(id)
+      .populate({
+        path: "author",
+        model: userProfile,
+        select: "_id username profile_pic",
+      })
+      .populate({
+        path: "children",
+        populate: [
+          {
+            path: "author",
+            model: userProfile,
+            select: "_id username parentId profile_pic",
+          },
+          {
+            path: "children",
+            model: userPosts,
+            populate: {
+              path: "author",
+              model: userProfile,
+              select: "_id username parentId profile_pic",
+            },
+          },
+        ],
+      })
+      .exec();
+    return getPostData;
+  } catch (error: any) {
+    throw new Error(
+      "Something is wrong while fetching user comment/replies",
+      error.message
+    );
+  }
 }
