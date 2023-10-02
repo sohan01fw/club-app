@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { Avatar } from "../ui/avatar";
 import { ForwardIcon, HeartIcon, MessageSquare, Repeat2 } from "lucide-react";
+import Link from "next/link";
 
 type dataProps = {
   id: string;
@@ -25,7 +26,7 @@ type dataProps = {
   }[];
   iscomment?: boolean;
 };
-const ClubPost = React.memo(({ author, content }: dataProps) => {
+const ClubPost = React.memo(({ id, author, content }: dataProps) => {
   return (
     <article className="m-10 rounded-lg shadow-md">
       <div className="userProfile flex flex-row w-40 ">
@@ -56,9 +57,12 @@ const ClubPost = React.memo(({ author, content }: dataProps) => {
         <div className="heart ">
           <HeartIcon size={18} />
         </div>
-        <div className="comment">
-          <MessageSquare size={18} />
-        </div>
+        <Link href={`/post/comments/${id}`}>
+          <div className="comments">
+            <MessageSquare size={18} />
+          </div>
+        </Link>
+
         <div className="share">
           <ForwardIcon size={18} />
         </div>
