@@ -28,7 +28,6 @@ export default async function RootLayout({
           <main className="flex justify-between w-full ">
             <NavigationBar />
             {children}
-
             <SuggestBar />
           </main>
         </body>

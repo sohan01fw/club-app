@@ -1,9 +1,7 @@
 "use server";
 import { revalidatePath } from "next/cache";
 import userProfile from "../Models/userprofile.model";
-import { ConnectToDB } from "../mongoose";
 import userPosts from "../Models/userposts.model";
-import path from "path";
 
 type params = {
   text: string;
@@ -11,7 +9,7 @@ type params = {
   communityId: string | null;
   path: string;
 };
-export async function UserPost({ text, author, communityId, path }: params) {
+export async function UserPost({ text, author, path }: params) {
   try {
     const createNewPost = await userPosts.create({
       text,

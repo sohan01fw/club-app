@@ -4,9 +4,7 @@ import FacebookProvider from "next-auth/providers/facebook";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import AuthUser from "./Models/authuser.model";
-import { StoreUser, updateStoreUser } from "./actions/AuthUser.action";
-import { redirect } from "next/navigation";
-import { ConnectToDB } from "./mongoose";
+import { StoreUser } from "./actions/AuthUser.action";
 
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
@@ -45,8 +43,8 @@ export const authOptions: NextAuthOptions = {
 
         try {
           // Find the user in the database
-          let user = await AuthUser.findOne({ email });
-
+          let user = await AuthUser.findOne({ email: "s@gmail.com" });
+          console.log("user", user);
           if (!user || user?.password !== password) {
             throw new Error("401");
           } else if (user?.password === "") {
@@ -75,7 +73,7 @@ export const authOptions: NextAuthOptions = {
       if (profile?.email) {
         const userEmailFormGoogle = profile.email;
         const userData = await AuthUser.findOne({ email: userEmailFormGoogle });
-
+        console.log(profile);
         // Save the user's email to your database
         if (!userData) {
           await StoreUser({ email: userEmailFormGoogle, password: "" });
@@ -85,7 +83,7 @@ export const authOptions: NextAuthOptions = {
       return true;
     },
 
-    async session({ session, token, user }) {
+    async session({ session }) {
       // Send properties to the client, like an access_token and user id from a provider.
       /* session.accessToken = token.accessToken
       session.user.id = token.id */

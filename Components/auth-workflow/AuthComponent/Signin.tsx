@@ -29,8 +29,6 @@ const defaultFormValues = {
 const Signin = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  /*  const { data: session, status } = useSession();
-  console.log(session); */
 
   //form validation
   const form = useForm<z.infer<typeof UserSigninvalidation>>({

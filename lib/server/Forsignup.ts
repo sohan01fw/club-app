@@ -2,12 +2,15 @@
 
 import AuthUser from "../Models/authuser.model";
 import { StoreUser, updateStoreUser } from "../actions/AuthUser.action";
+import { ConnectToDB } from "../mongoose";
 
 type Values = {
   email: "";
   password: "";
 };
 const Forsignup = async (email: string, password: string) => {
+  await ConnectToDB();
+  console.log({ email, password });
   try {
     const checkUser = await AuthUser.findOne({ email });
     if (!checkUser) {
