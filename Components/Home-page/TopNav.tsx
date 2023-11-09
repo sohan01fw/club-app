@@ -24,7 +24,7 @@ const Logo = async () => {
   return (
     <nav className="flex fixed w-full bg-white h-[5rem] top-0 z-20 justify-between lg:h-[4rem] ">
       <div className="  flex h-36 w-48  mt-[-30px]  transition-transform transform active:scale-95 lg:h-28 lg:w-[8rem] lg:mt-[-25px] ">
-        <h1 className="text-5xl font-extrabold ml-[40px] mt-[3.2rem] lg:ml-[-40rem] lg:mt-[2.5rem] lg:text-4xl">
+        <h1 className="text-5xl font-extrabold ml-[40px] mt-[3.2rem] lg:ml-[2rem] lg:mt-[2.5rem] lg:text-4xl">
           Club
         </h1>
       </div>
