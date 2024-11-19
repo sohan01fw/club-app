@@ -1,7 +1,7 @@
 "use server";
 import { revalidatePath } from "next/cache";
 import userProfile from "../Models/userprofile.model";
-import userPosts from "../Models/userposts.model";
+import userPosts from "../Models/userPosts.model";
 
 type params = {
   text: string;
